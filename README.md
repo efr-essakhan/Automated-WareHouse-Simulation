@@ -1,0 +1,2 @@
+# Automated WareHouse Simulation
+ A simplified simulation of a part of an automated warehouse, such as those used by Amazon. 1 https://www.youtube.com/watch?v=6KRjuuEVEZs Copyright (c) Aston University 2018 CS1410 Coursework. The simulation is run in “ticks”: each tick, all the actors will perform a bit of their behaviour. By running one tick after the other, we can see how the warehouse would operate given some parameters.
