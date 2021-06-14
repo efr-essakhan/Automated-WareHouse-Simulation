@@ -14,25 +14,31 @@ public class Location {
 	
 	private int x;
 	private int y;
-	private Set<Actor> actorsInLoc;
+	private Set<Actor> actors;
 	
 	public Location(int x, int y) {
+		this(x, y, null);
+	}
+	
+	public Location(int x, int y, Actor actor) {
 		this.x = x;
 		this.y = y;
-		actorsInLoc = new HashSet<Actor>();
+		actors = new HashSet<Actor>();
+		addActor(actor);
 	}
 	
 	public void addActor(Actor actor) {
-		actorsInLoc.add(actor);
+		actors.add(actor);
 	}
 	
-	public Set<Actor> getActorsInLocSet() {
-		return actorsInLoc;
+	public Set<Actor> getActors() {
+		return actors;
 	}
+	
 	
 	public void mergeLocations(Location loc) {
 		
-		actorsInLoc.addAll(loc.getActorsInLocSet());	
+		actors.addAll(loc.getActors());	
 		
 	}
 	

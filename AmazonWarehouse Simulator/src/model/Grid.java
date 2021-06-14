@@ -2,6 +2,7 @@ package model;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Set;
 
 public class Grid {
 
@@ -13,13 +14,27 @@ public class Grid {
 
 	}
 
-	public void addActor(Actor actor) {
-		
-		Location loc = actor.getLocation();
-		grid[loc.getX()][loc.getY()] = actor;
-	}
+//	public void addActor(Actor actor) {
+//		
+//		Location loc = actor.getLocation();
+//		grid[loc.getX()][loc.getY()] = actor;
+//	}
 	
 	public void addLocationToGrid(Location loc) {
+		Location orgloc = grid[loc.getX()][loc.getY()];
+		
+		if (orgloc != null) {
+			orgloc.mergeLocations(loc);
+		}
+		else {
+			grid[loc.getX()][loc.getY()] = loc;
+		}
+		
+	}
+	
+	public void addActorToGrid(Actor actor) {
+		Location loc = actor.getLocation();
+		
 		Location orgloc = grid[loc.getX()][loc.getY()];
 		
 		if (orgloc != null) {
@@ -40,35 +55,56 @@ public class Grid {
 
 			for (int j = 0; j < grid[i].length; j++) {
 
-				Actor actor = grid[i][j];
+				Location loc = (Location) grid[i][j];
 				
-				if (actor != null) {
-
-					if (actor instanceof Robot) {
-
-						Robot robot = (Robot) actor;
-
-						int x = robot.getChargingPod().getLocation().getX();
-						int y = robot.getChargingPod().getLocation().getY();
-
-						if (x == i && y == j) { //Charging pod and robot on same location
-							sb.append(robot.toString() + robot.getChargingPod().toString()).append("\t");
+				if (loc != null) {
+					
+					for (Actor actor : loc.getActors()) {
+						
+						if (actor != null) {
+							sb.append(actor.toString());
 						}
+						
 
 					}
-				}
-				
-
-				if (actor != null) {
-
-					sb.append(actor.toString()).append("\t");
-
+					
+					sb.append("\t");
+					
 				}
 				else {
 
 					sb.append(".").append("\t");
 
 				}
+	
+				
+//				if (actor != null) {
+//
+//					if (actor instanceof Robot) {
+//
+//						Robot robot = (Robot) actor;
+//
+//						int x = robot.getChargingPod().getLocation().getX();
+//						int y = robot.getChargingPod().getLocation().getY();
+//
+//						if (x == i && y == j) { //Charging pod and robot on same location
+//							sb.append(robot.toString() + robot.getChargingPod().toString()).append("\t");
+//						}
+//
+//					}
+//				}
+//				
+//
+//				if (actor != null) {
+//
+//					sb.append(actor.toString()).append("\t");
+//
+//				}
+//				else {
+//
+//					sb.append(".").append("\t");
+//
+//				}
 			}
 			sb.append("\n");
 		}

@@ -32,6 +32,7 @@ public abstract class Actor {
 	 */
 	public Actor(int x, int y, String uid) {
 		location = new Location(x, y);
+		location.addActor(this);
 		this.UID = uid;
 	}
 	

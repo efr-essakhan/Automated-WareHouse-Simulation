@@ -8,10 +8,9 @@ public class ChargingPod extends Actor {
 	
 	public static int CHARGE_SPEED = 0; //the number of power units that a charging pod recharges per tick
 	private Robot bot;
-	public ChargingPod(int x, int y, Robot bot) {
-		super(x, y);
-		this.bot = bot;
-		// TODO Auto-generated constructor stub
+	public ChargingPod(Actor b) {
+		super(b.getLocation().getX(), b.getLocation().getY());
+		this.bot = (Robot) b;
 	}
 	
 	/**

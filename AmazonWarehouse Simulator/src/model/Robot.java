@@ -9,7 +9,7 @@ public class Robot extends Actor {
 
 	public Robot(int x, int y) {
 		super(x, y);
-		chargingPod = new ChargingPod(x,y, this);
+		chargingPod = new ChargingPod(this);
 		carrying = false; // not carrying anything at the start.
 		
 	}
