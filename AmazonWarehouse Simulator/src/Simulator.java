@@ -1,14 +1,21 @@
+import model.ChargingPod;
 import model.Grid;
+import model.Robot;
 
 public class Simulator {
 	
-	private final int GRID_WIDTH; //width of the warehouse grid, in cells.
-	private final int GRID_HEIGHT; //height of the warehouse grid, in cells
-	private final int CAPACITY; //capacity of the battery of all the robots
-	private final int CHARGE_SPEED; //the number of power units that a charging pod recharges per tick
+//	private final int GRID_LENGTH; //width of the warehouse grid, in cells. X
+//	private final int GRID_HEIGHT; //height of the warehouse grid, in cells Y
+//	private final int CAPACITY; //capacity of the battery of all the robots
+//	private final int CHARGE_SPEED; //the number of power units that a charging pod recharges per tick
 	
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+	private Grid grid;
+	
+	public static void main(Integer[] args) { //Changes array from String[]
+		
+		//Setting up.
+		Robot.CAPACITY = args[2];
+		ChargingPod.CHARGE_SPEED = args[3];
 		
 		//Take in a number of parameters.
 		//Set those parameters
@@ -22,17 +29,16 @@ public class Simulator {
 		//2) Move the simulation based on one tick first.
 		//3) A tick constitutes calling act on each actor
 		
-		Grid g = new Grid(20, 20);
-		System.out.println(g.toString());
+		Grid grid = new Grid(20, 20);
+		System.out.println(grid.toString());
 
 	}
 	
-	public Simulator(int gridWidth, int gridHeight, int chargeSpeed, int capacity) {
-
-		this.GRID_WIDTH = gridWidth;
-		this.GRID_HEIGHT = gridHeight;
-		this.CAPACITY = capacity;
-		this.CHARGE_SPEED = chargeSpeed;
+	public Simulator(int gridLength, int gridHeight, int chargeSpeed, int capacity) {
+		
+		grid = new Grid(gridLength, gridHeight);
+		
+		
 	}
 	
 }

@@ -7,9 +7,9 @@ public class Grid {
 
 	private Actor[][] grid;
 
-	public Grid(int gridLENGTH, int gridHeight) {
+	public Grid(int gridLength, int gridHeight) {
 		
-		grid = new Actor[gridLENGTH][gridHeight];
+		grid = new Actor[gridLength][gridHeight];
 
 	}
 
