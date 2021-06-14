@@ -33,15 +33,24 @@ public class Grid {
 	}
 	
 	public void addActorToGrid(Actor actor) {
+		
 		Location loc = actor.getLocation();
 		
 		Location orgloc = grid[loc.getX()][loc.getY()];
 		
-		if (orgloc != null) {
+		if (orgloc != null) { //If location not occupied
 			orgloc.mergeLocations(loc);
 		}
 		else {
 			grid[loc.getX()][loc.getY()] = loc;
+		}
+		
+		orgloc = grid[loc.getX()][loc.getY()];
+		
+		if (actor instanceof Robot) {
+			Robot robot = (Robot) actor;
+			orgloc.mergeLocations(robot.getChargingPod().getLocation());
+
 		}
 		
 	}
