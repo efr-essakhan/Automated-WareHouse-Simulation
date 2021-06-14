@@ -15,7 +15,7 @@ class GridTest {
 		grid.addActor(new Robot(1,2));
 		grid.addActor(new Robot(3,4));
 		grid.addActor(new Robot(8,9));
-		grid.addActor(new Robot(9,9));
+		grid.addActor(new ChargingPod(9,9, null));
 		grid.addActor(new Robot(4,4));
 		
 	}

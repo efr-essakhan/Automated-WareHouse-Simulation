@@ -1,5 +1,9 @@
 package model;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  * Represent a location x,y on the map.
  * 
@@ -10,10 +14,26 @@ public class Location {
 	
 	private int x;
 	private int y;
+	private Set<Actor> actorsInLoc;
 	
 	public Location(int x, int y) {
 		this.x = x;
 		this.y = y;
+		actorsInLoc = new HashSet<Actor>();
+	}
+	
+	public void addActor(Actor actor) {
+		actorsInLoc.add(actor);
+	}
+	
+	public Set<Actor> getActorsInLocSet() {
+		return actorsInLoc;
+	}
+	
+	public void mergeLocations(Location loc) {
+		
+		actorsInLoc.addAll(loc.getActorsInLocSet());	
+		
 	}
 	
 	public void setX(int x) {
