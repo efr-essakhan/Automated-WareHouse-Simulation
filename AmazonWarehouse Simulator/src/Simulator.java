@@ -5,6 +5,7 @@ import model.Actor;
 import model.ChargingPod;
 import model.Grid;
 import model.Order;
+import model.PackingStation;
 import model.Robot;
 import model.Shelf;
 
@@ -76,10 +77,14 @@ public class Simulator {
 		ChargingPod.CHARGE_SPEED = chargeSpeed;
 		
 		
-		actors.add(new Robot(1, 1, "r0"));
-		actors.add(new Robot(1, 2));
-		actors.add(new Robot(1, 1));
-		actors.add(new Shelf(9, 9));
+		actors.add(new Robot(2, 0, "r0", "c0"));
+		actors.add(new Shelf(2, 2, "ss0"));
+		actors.add(new PackingStation(0, 2, "ps0"));
+		
+		
+		PackingStation.enterOrder(null);
+		
+		
 		
 		grid.addActorsToGrid(actors);
 		

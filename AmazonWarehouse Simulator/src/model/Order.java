@@ -1,6 +1,7 @@
 package model;
 
 import java.util.HashSet;
+import java.util.List;
 
 public class Order {
 	
@@ -9,10 +10,18 @@ public class Order {
 
 	private HashSet<Shelf> shelfs;
 	
+
+	
 	public Order(int ticksToPack) {
+		this(ticksToPack, null);	
+	}
+	
+	public Order(int ticksToPack, List<String> shelfUid) {
 		this.ticksToPack = ticksToPack;
 		shelfs = new HashSet<Shelf>();
 		dispatched = false;
+		
+		//use list to fill in shelfs.
 		
 	}
 	
