@@ -1,7 +1,11 @@
+import java.util.ArrayList;
+
 import model.Actor;
 import model.ChargingPod;
 import model.Grid;
+import model.Order;
 import model.Robot;
+import model.Shelf;
 
 public class Simulator {
 	
@@ -12,6 +16,7 @@ public class Simulator {
 	
 	private Grid grid;
 	private boolean simulationTerminate;
+	private ArrayList<Order> orders;
 	
 	public static void main(String[] args) { //Changes array from String[]
 		
@@ -63,6 +68,7 @@ public class Simulator {
 		grid.addActorToGrid(new Robot(1, 1));
 		grid.addActorToGrid(new Robot(1, 2));
 		grid.addActorToGrid(new Robot(1, 1));
+		grid.addActorToGrid(new Shelf(1, 1));
 		
 		System.out.println(grid.toString());
 	}

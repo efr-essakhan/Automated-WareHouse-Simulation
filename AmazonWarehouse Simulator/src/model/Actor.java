@@ -14,6 +14,7 @@ public abstract class Actor {
 	protected Location location;
 	private static String UID = "0";
 	
+	
 	/**
 	 * Constructer If you want self generating UID
 	 * @param x
@@ -36,6 +37,7 @@ public abstract class Actor {
 		this.UID = uid;
 	}
 	
+	public abstract boolean getOBSTRUCTIVE();
 
 	/**
 	 * This is what actors do each tick

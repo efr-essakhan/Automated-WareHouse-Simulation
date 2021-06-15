@@ -1,10 +1,15 @@
 package model;
 
-public class PackingStation extends Actor {
+import java.util.ArrayList;
 
+public class PackingStation extends Actor {
+	
+	private final static boolean OBSTRUCTIVE = false; //Can robot move through it?
+	private static ArrayList<Order> orders;
+	
 	public PackingStation(int x, int y, String uid) {
 		super(x, y, uid);
-		// TODO Auto-generated constructor stub
+		orders = new ArrayList<Order>();
 	}
 
 	@Override
@@ -16,6 +21,20 @@ public class PackingStation extends Actor {
 	@Override
 	public String toString() {
 		return "P";
+	}
+
+	@Override
+	public boolean getOBSTRUCTIVE() {
+	
+		return this.OBSTRUCTIVE;
+	}
+
+	public static ArrayList<Order> getOrders() {
+		return orders;
+	}
+
+	public static void enterOrder(Order order) {
+		orders.add(order);
 	}
 
 }
