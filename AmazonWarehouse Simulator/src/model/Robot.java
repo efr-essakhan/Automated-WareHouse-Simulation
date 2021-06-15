@@ -8,9 +8,16 @@ public class Robot extends Actor {
 	private ChargingPod chargingPod; 
 	private int Charge;
 	private boolean carrying;
-
+	
 	public Robot(int x, int y) {
-		super(x, y);
+		
+		this(x, y, null);
+		
+	}
+
+	public Robot(int x, int y, String uid) {
+		super(x, y, uid);
+		
 		chargingPod = new ChargingPod(this); //Assign a chargingpod automatically
 		setCarrying(false); // not carrying anything at the start.
 	}

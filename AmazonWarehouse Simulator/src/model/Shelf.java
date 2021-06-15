@@ -5,7 +5,7 @@ public class Shelf extends Actor {
 	private final static boolean OBSTRUCTIVE = false; //Can robot move through it?
 	
 	public Shelf(int x, int y) {
-		super(x, y);
+		this(x, y, null);
 	}
 
 	public Shelf(int x, int y, String UID) {

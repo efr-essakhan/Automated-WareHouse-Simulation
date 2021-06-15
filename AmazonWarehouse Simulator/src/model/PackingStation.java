@@ -6,6 +6,12 @@ public class PackingStation extends Actor {
 	
 	private final static boolean OBSTRUCTIVE = false; //Can robot move through it?
 	private static ArrayList<Order> orders;
+
+	public PackingStation(int x, int y) {
+
+		this(x, y, null);
+
+	}
 	
 	public PackingStation(int x, int y, String uid) {
 		super(x, y, uid);

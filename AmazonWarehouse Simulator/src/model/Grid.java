@@ -2,6 +2,7 @@ package model;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 
 public class Grid {
@@ -32,25 +33,29 @@ public class Grid {
 		
 	}
 	
-	public void addActorToGrid(Actor actor) {
+	public void addActorsToGrid(List<Actor> actors) {
 		
-		Location loc = actor.getLocation();
-		
-		Location orgloc = grid[loc.getX()][loc.getY()];
-		
-		if (orgloc != null) { //If location not occupied
-			orgloc.mergeLocations(loc);
-		}
-		else {
-			grid[loc.getX()][loc.getY()] = loc;
-		}
-		
-		orgloc = grid[loc.getX()][loc.getY()];
-		
-		if (actor instanceof Robot) {
-			Robot robot = (Robot) actor;
-			orgloc.mergeLocations(robot.getChargingPod().getLocation());
+		for (Actor actor : actors) {
+			
+			Location loc = actor.getLocation();
+			
+			Location orgloc = grid[loc.getX()][loc.getY()];
+			
+			if (orgloc != null) { //If location not occupied
+				orgloc.mergeLocations(loc);
+			}
+			else {
+				grid[loc.getX()][loc.getY()] = loc;
+			}
+			
+			orgloc = grid[loc.getX()][loc.getY()];
+			
+			if (actor instanceof Robot) {
+				Robot robot = (Robot) actor;
+				orgloc.mergeLocations(robot.getChargingPod().getLocation());
 
+			}
+			
 		}
 		
 	}

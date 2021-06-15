@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.List;
 
 import model.Actor;
 import model.ChargingPod;
@@ -17,6 +18,7 @@ public class Simulator {
 	private Grid grid;
 	private boolean simulationTerminate;
 	private ArrayList<Order> orders;
+	private List<Actor> actors;
 	
 	public static void main(String[] args) { //Changes array from String[]
 		
@@ -36,15 +38,19 @@ public class Simulator {
 		//2) Move the simulation based on one tick first.
 		//3) A tick constitutes calling act on each actor
 		
-		Simulator k = new Simulator(10,10);
+		Simulator k = new Simulator(3,3, 20, 1);
 
 	}
 	
-	public Simulator(int gridLength, int gridHeight) {
+	public Simulator(int gridLength, int gridHeight, int capacity, int chargeSpeed) {
 		
 		grid = new Grid(gridLength, gridHeight);
 		simulationTerminate = false;
-		simulationActorSetup();
+		actors = new ArrayList<Actor>();
+		simulationActorSetup(capacity, chargeSpeed);
+		
+		
+	
 		
 		
 	}
@@ -61,16 +67,28 @@ public class Simulator {
 		
 		
 		
+		
 	}
 	
-	public void simulationActorSetup() {
+	public void simulationActorSetup(int capacity, int chargeSpeed) {
 		
-		grid.addActorToGrid(new Robot(1, 1));
-		grid.addActorToGrid(new Robot(1, 2));
-		grid.addActorToGrid(new Robot(1, 1));
-		grid.addActorToGrid(new Shelf(1, 1));
+		Robot.CAPACITY = capacity;
+		ChargingPod.CHARGE_SPEED = chargeSpeed;
+		
+		
+		actors.add(new Robot(1, 1, "r0"));
+		actors.add(new Robot(1, 2));
+		actors.add(new Robot(1, 1));
+		actors.add(new Shelf(9, 9));
+		
+		grid.addActorsToGrid(actors);
 		
 		System.out.println(grid.toString());
 	}
+
+//	public List<Actor> getActor() {
+//		return actor;
+//	}
+
 	
 }

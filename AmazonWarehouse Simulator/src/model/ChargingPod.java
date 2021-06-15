@@ -9,8 +9,16 @@ public class ChargingPod extends Actor {
 	private final static boolean OBSTRUCTIVE = false; //Can robot move through it?
 	public static int CHARGE_SPEED = 0; //the number of power units that a charging pod recharges per tick
 	private Robot bot;
+	
 	public ChargingPod(Actor b) {
-		super(b.getLocation().getX(), b.getLocation().getY());
+
+		super(b.getLocation().getX(), b.getLocation().getY(), null);
+
+	}
+	
+	
+	public ChargingPod(Actor b, String uid) {
+		super(b.getLocation().getX(), b.getLocation().getY(), uid);
 		this.bot = (Robot) b;
 	}
 	
