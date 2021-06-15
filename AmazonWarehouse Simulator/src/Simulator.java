@@ -1,5 +1,10 @@
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.ListIterator;
+import java.util.Map;
 
 import model.Actor;
 import model.ChargingPod;
@@ -19,7 +24,8 @@ public class Simulator {
 	private Grid grid;
 	private boolean simulationTerminate;
 	private ArrayList<Order> orders;
-	private List<Actor> actors;
+//	private List<Actor> actors;
+	private Map<String, List<Actor>> actors;
 	
 	public static void main(String[] args) { //Changes array from String[]
 		
@@ -47,7 +53,7 @@ public class Simulator {
 		
 		grid = new Grid(gridLength, gridHeight);
 		simulationTerminate = false;
-		actors = new ArrayList<Actor>();
+		actors = new HashMap<>();
 		simulationActorSetup(capacity, chargeSpeed);
 		
 		
@@ -66,9 +72,14 @@ public class Simulator {
 	
 	public void simulateOneTick() {
 		
-		
-		
-		
+//		for (int i = 0; i < actors.size(); i++) {
+//			Actor actor = actors.get(i);
+//			if (actor instanceof PackingStation) {
+//				actor.act();
+//			}
+//			
+//			
+//		}
 	}
 	
 	public void simulationActorSetup(int capacity, int chargeSpeed) {
@@ -76,24 +87,34 @@ public class Simulator {
 		Robot.CAPACITY = capacity;
 		ChargingPod.CHARGE_SPEED = chargeSpeed;
 		
+		List<Actor> robots = new ArrayList<Actor>();
+		robots.add(new Robot(2, 0, "r0", "c0"));
+		actors.put("Robot", robots);
 		
-		actors.add(new Robot(2, 0, "r0", "c0"));
-		actors.add(new Shelf(2, 2, "ss0"));
-		actors.add(new PackingStation(0, 2, "ps0"));
+		List<Actor> shelf = new ArrayList<Actor>();
+		Shelf s = new Shelf(2, 2, "ss0");
+		shelf.add(s);
+		actors.put("Shelf", shelf);
 		
+		List<Actor> packingStation = new ArrayList<Actor>();
+		packingStation.add(new PackingStation(0, 2, "ps0"));
+		actors.put("PackingStation", packingStation);
+
+		Order a = new Order(2);
+		a.addShelf((Shelf) actors.get(1));
+		PackingStation.enterOrder(a);
 		
-		PackingStation.enterOrder(null);
-		
-		
-		
-		grid.addActorsToGrid(actors);
-		
+
+		//Add to grid.
+		for (List<Actor> actors : actors.values()) {
+			
+			grid.addActorsToGrid(actors);
+			
+		}
+
 		System.out.println(grid.toString());
 	}
 
-//	public List<Actor> getActor() {
-//		return actor;
-//	}
 
 	
 }

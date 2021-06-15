@@ -37,7 +37,7 @@ public class Grid {
 		
 		for (Actor actor : actors) {
 			
-			Location loc = actor.getLocation();
+			Location loc = actor.getLocation();	
 			
 			Location orgloc = grid[loc.getX()][loc.getY()];
 			

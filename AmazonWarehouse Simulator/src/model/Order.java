@@ -1,5 +1,6 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
@@ -12,16 +13,24 @@ public class Order {
 	
 
 	
-	public Order(int ticksToPack) {
-		this(ticksToPack, null);	
-	}
+//	public Order(int ticksToPack) {
+//		this(ticksToPack, null);	
+//	}
+//	
+//	public Order(int ticksToPack, String[] shelfsUid) {
+//		this.ticksToPack = ticksToPack;
+//		shelfs = new HashSet<Shelf>();
+//		dispatched = false;
+//		
+//		//use list to fill in shelfs.
+//
+//		
+//	}
 	
-	public Order(int ticksToPack, List<String> shelfUid) {
+	public Order(int ticksToPack) {
 		this.ticksToPack = ticksToPack;
 		shelfs = new HashSet<Shelf>();
 		dispatched = false;
-		
-		//use list to fill in shelfs.
 		
 	}
 	
