@@ -5,6 +5,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import model.Actor;
 import model.ChargingPod;
@@ -56,7 +57,6 @@ public class Simulator {
 		actors = new HashMap<>();
 		simulationActorSetup(capacity, chargeSpeed);
 		
-		
 	
 		
 		
@@ -70,16 +70,39 @@ public class Simulator {
 		
 	}
 	
+	
+	/**
+	 * Packing stations tick, then the charging pods,
+	 * the shelves, and ﬁnally the robots. This way, the code in robots can assume that all packing
+	 * stations have done what they had to for this tick.
+	 */
 	public void simulateOneTick() {
+
+		List<Actor> actorList = actors.get("PackingStation");
 		
-//		for (int i = 0; i < actors.size(); i++) {
-//			Actor actor = actors.get(i);
-//			if (actor instanceof PackingStation) {
-//				actor.act();
-//			}
-//			
-//			
-//		}
+		for (Actor actor : actorList) {
+			actor.act();
+		}
+		
+		actorList = actors.get("Robot");
+		
+		for (Actor actor : actorList) {
+			Robot r = (Robot) actor;
+			r.getChargingPod().act();
+		}
+		
+		actorList = actors.get("Shelf");
+		
+		for (Actor actor : actorList) {
+			actor.act();
+		}
+		
+		actorList = actors.get("Robot");
+		
+		for (Actor actor : actorList) {
+			actor.act();
+		}
+
 	}
 	
 	public void simulationActorSetup(int capacity, int chargeSpeed) {
@@ -97,7 +120,7 @@ public class Simulator {
 		actors.put("Shelf", shelf);
 		
 		List<Actor> packingStation = new ArrayList<Actor>();
-		packingStation.add(new PackingStation(0, 2, "ps0"));
+		packingStation.add(new PackingStation(0, 2 ,"ps0"));
 		actors.put("PackingStation", packingStation);
 
 		Order a = new Order(2);

@@ -1,26 +1,46 @@
 package model;
 
+
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 
 public class PackingStation extends Actor {
 	
 	private final static boolean OBSTRUCTIVE = false; //Can robot move through it?
-	private static ArrayList<Order> orders;
+	private static LinkedList<Order> orders;
+	private List<Robot> robots;
 
-	public PackingStation(int x, int y) {
+	public PackingStation(int x, int y, List<Robot> robots) {
 
-		this(x, y, null);
+		this(x, y, robots, null);
 
 	}
 	
-	public PackingStation(int x, int y, String uid) {
+	public PackingStation(int x, int y, List<Robot> robots,String uid) {
 		super(x, y, uid);
-		orders = new ArrayList<Order>();
+		orders = new LinkedList<Order>();
+		this.robots = robots;
 	}
 
 	@Override
 	public void act() {
-		// TODO Auto-generated method stub
+		Order order = getOrders().pollFirst();
+		
+		if (order != null) {
+			//Take a shelf from the order's HashSet
+			for (Shelf shelf : order.getShelfs()) {
+				
+//				ask the robots to bring items from certain storage shelves.
+				
+				
+				
+			}
+			
+			
+
+			
+		}
 		
 	}
 
@@ -35,7 +55,7 @@ public class PackingStation extends Actor {
 		return this.OBSTRUCTIVE;
 	}
 
-	public static ArrayList<Order> getOrders() {
+	public static LinkedList<Order> getOrders() {
 		return orders;
 	}
 
