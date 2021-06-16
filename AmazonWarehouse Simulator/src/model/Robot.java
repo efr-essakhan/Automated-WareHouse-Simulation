@@ -36,26 +36,15 @@ public class Robot extends Actor {
 	}
 	
 
-	/**
-	 * Checks if it can complete the assignment with fuel count, if so it returns the
-	 * approximate steps it will take to complete the assignment.
-	 * @param shelf to travel to to pick up items
-	 * @param packingStation that proposed the assignment
-	 * @return number of steps it will take to complete the assignment
-	 */
-	public int analyseAssignment(Shelf shelf, PackingStation packingStation) {
-		return analyseProposal(shelf, packingStation);
-	}
 
 
 	/**
 	 * Checks if it can complete the assignment with fuel count, if so it returns the
 	 * approximate steps it will take to complete the assignment.
-	 * @param shelf to travel to to pick up items
-	 * @param packingStation that proposed the assignment
+	 * @param proposal object to retrieve the shelf to travel to to pick up items & packingStation that proposed the assignment
 	 * @return number of steps it will take to complete the assignment
 	 */
-	public int analyseProposal(Shelf shelf, PackingStation packingStation) {
+	public int analyseProposal(Proposal proposal) {
 		
 		//do pathfinding first.
 		//decide if it can do the assignment based on fuel count.
@@ -64,8 +53,8 @@ public class Robot extends Actor {
 		
 	}
 	
-	public int obeyProposal() {
-		return 1;
+	public void obeyProposal(Proposal proposal) {
+//		return 1;
 	}
 	
 

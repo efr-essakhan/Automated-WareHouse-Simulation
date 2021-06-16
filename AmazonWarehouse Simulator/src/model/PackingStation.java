@@ -35,45 +35,35 @@ public class PackingStation extends Actor {
 			//Take a shelf from the order's HashSet
 			for (Shelf shelf : order.getShelfs()) {
 				
-
 				//Holds the best responses to the proposal and the Robot
-				int lowestSteps = -1;
-				Robot robotForTheJob = null;
+				Proposal proposal = new Proposal(shelf, this);
 				
 				//Propose shelf to each robot
 				for (Actor robot : robots) {
 					Robot robot1 = (Robot) robot;
 					
-					Integer stepsToTake = robot1.analyseProposal(shelf, this);
-
+					Integer stepsToTake = robot1.analyseProposal(proposal);
+					
 					if (stepsToTake != null) {
 						//Set the first potential robot
-						if (robotForTheJob == null) {
-							lowestSteps = stepsToTake;
-							robotForTheJob = robot1;
+						if (proposal.getRobotForTheJob() == null) {
+							proposal.setLowestSteps(stepsToTake);
+							proposal.setRobotForTheJob(robot1);
 						}//Check if this robot can be Set the Robot for the job with its corresponding steps.
-						else if (lowestSteps > stepsToTake) {
-							lowestSteps = stepsToTake;
-							robotForTheJob = robot1;
+						else if (proposal.getLowestSteps() > stepsToTake) {
+							proposal.setLowestSteps(stepsToTake);
+							proposal.setRobotForTheJob(robot1);
 						}
 					}
 				}
 				
-				//Check if a robot has responded to the proposal.
-				if (robotForTheJob != null) {
+				//If there is a robot suitable to take the job, give it to them. Else try again next tick.
+				if (proposal.getRobotForTheJob() != null) {
 					
+					proposal.getRobotForTheJob().obeyProposal(proposal);
 					
 					
 				}
-				
-				
-				
-				
-				
-				
-				
-				
-				
 				
 			}
 			

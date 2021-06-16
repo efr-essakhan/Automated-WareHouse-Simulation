@@ -9,9 +9,13 @@ public class Proposal {
 	
 	private int lowestSteps;
 	private Robot robotForTheJob;
+	private Shelf shelf;
+	private PackingStation packingStation;
 	
-	public Proposal() {
-		lowestSteps = 0;
+	public Proposal(Shelf shelf, PackingStation packingStation) {
+		this.shelf = shelf;
+		this.packingStation = packingStation;
+		lowestSteps = -1;
 		robotForTheJob = null;
 	}
 	
@@ -27,6 +31,19 @@ public class Proposal {
 	public void setRobotForTheJob(Robot robotForTheJob) {
 		this.robotForTheJob = robotForTheJob;
 	}
+
+	public Shelf getShelf() {
+		return shelf;
+	}
+
+	public PackingStation getPackingStation() {
+		return packingStation;
+	}
+	
+	/**
+	 * 
+	 * @return whether or not the proposal/job has been assigned to a Robot
+	 */
 	
 	
 	
