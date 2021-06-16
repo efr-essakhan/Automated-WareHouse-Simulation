@@ -120,7 +120,7 @@ public class Simulator {
 		actors.put("Shelf", shelf);
 		
 		List<Actor> packingStation = new ArrayList<Actor>();
-		packingStation.add(new PackingStation(0, 2 ,"ps0"));
+		packingStation.add(new PackingStation(0, 2, actors.get("Robot"), "ps0"));
 		actors.put("PackingStation", packingStation);
 
 		Order a = new Order(2);

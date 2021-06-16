@@ -9,15 +9,15 @@ public class PackingStation extends Actor {
 	
 	private final static boolean OBSTRUCTIVE = false; //Can robot move through it?
 	private static LinkedList<Order> orders;
-	private List<Robot> robots;
+	private List<Actor> robots;
 
-	public PackingStation(int x, int y, List<Robot> robots) {
+	public PackingStation(int x, int y, List<Actor> robots) {
 
 		this(x, y, robots, null);
 
 	}
 	
-	public PackingStation(int x, int y, List<Robot> robots,String uid) {
+	public PackingStation(int x, int y, List<Actor> robots,String uid) {
 		super(x, y, uid);
 		orders = new LinkedList<Order>();
 		this.robots = robots;
@@ -33,6 +33,14 @@ public class PackingStation extends Actor {
 				
 //				ask the robots to bring items from certain storage shelves.
 				
+				for (Actor robot : robots) {
+					Robot robot1 = (Robot) robot;
+					
+					Integer stepsToTake = robot1.analyseAssignment(shelf, this);
+					
+					
+				}
+				
 				
 				
 			}
@@ -43,6 +51,7 @@ public class PackingStation extends Actor {
 		}
 		
 	}
+	
 
 	@Override
 	public String toString() {
