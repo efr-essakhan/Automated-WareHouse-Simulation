@@ -44,12 +44,28 @@ public class Robot extends Actor {
 	 * @return number of steps it will take to complete the assignment
 	 */
 	public int analyseAssignment(Shelf shelf, PackingStation packingStation) {
+		return analyseProposal(shelf, packingStation);
+	}
+
+
+	/**
+	 * Checks if it can complete the assignment with fuel count, if so it returns the
+	 * approximate steps it will take to complete the assignment.
+	 * @param shelf to travel to to pick up items
+	 * @param packingStation that proposed the assignment
+	 * @return number of steps it will take to complete the assignment
+	 */
+	public int analyseProposal(Shelf shelf, PackingStation packingStation) {
 		
 		//do pathfinding first.
 		//decide if it can do the assignment based on fuel count.
 		
 		return Charge;
 		
+	}
+	
+	public int obeyProposal() {
+		return 1;
 	}
 	
 

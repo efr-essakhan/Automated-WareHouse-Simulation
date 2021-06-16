@@ -2,8 +2,12 @@ package model;
 
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 public class PackingStation extends Actor {
 	
@@ -31,15 +35,43 @@ public class PackingStation extends Actor {
 			//Take a shelf from the order's HashSet
 			for (Shelf shelf : order.getShelfs()) {
 				
-//				ask the robots to bring items from certain storage shelves.
+
+				//Holds the best responses to the proposal and the Robot
+				int lowestSteps = -1;
+				Robot robotForTheJob = null;
 				
+				//Propose shelf to each robot
 				for (Actor robot : robots) {
 					Robot robot1 = (Robot) robot;
 					
-					Integer stepsToTake = robot1.analyseAssignment(shelf, this);
+					Integer stepsToTake = robot1.analyseProposal(shelf, this);
+
+					if (stepsToTake != null) {
+						//Set the first potential robot
+						if (robotForTheJob == null) {
+							lowestSteps = stepsToTake;
+							robotForTheJob = robot1;
+						}//Check if this robot can be Set the Robot for the job with its corresponding steps.
+						else if (lowestSteps > stepsToTake) {
+							lowestSteps = stepsToTake;
+							robotForTheJob = robot1;
+						}
+					}
+				}
+				
+				//Check if a robot has responded to the proposal.
+				if (robotForTheJob != null) {
+					
 					
 					
 				}
+				
+				
+				
+				
+				
+				
+				
 				
 				
 				
@@ -51,6 +83,8 @@ public class PackingStation extends Actor {
 		}
 		
 	}
+	
+	
 	
 
 	@Override
