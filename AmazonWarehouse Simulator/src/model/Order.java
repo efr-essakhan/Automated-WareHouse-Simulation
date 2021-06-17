@@ -1,6 +1,7 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 
@@ -9,7 +10,7 @@ public class Order {
 	private int ticksToPack; //number of ticks it takes to pack it
 	private boolean dispatched;  //Delivery dispatched or not
 
-	private HashSet<Shelf> shelfs;
+	private HashMap<Shelf, ShelfStates> shelfs; // Values: Null = Not touched yet, False = Dispatches, 
 	
 
 	
@@ -29,21 +30,39 @@ public class Order {
 	
 	public Order(int ticksToPack) {
 		this.ticksToPack = ticksToPack;
-		shelfs = new HashSet<Shelf>();
+		shelfs = new HashMap<>();
 		dispatched = false;
 		
 	}
 	
-	public HashSet<Shelf> getShelfs() {
+	public HashMap<Shelf,ShelfStates> getShelfs() {
 		return shelfs;
 	}
 	
 	public void addShelf(Shelf shelf) {
-		this.shelfs.add(shelf);
+		this.shelfs.put(shelf, ShelfStates.WAITING);
 	}
 	
-	public void addShelfs(HashSet<Shelf> shelfs) {
-		this.shelfs.addAll(shelfs);
+	public void addShelfs(HashMap<Shelf,ShelfStates> shelfs) {
+		this.shelfs.putAll(shelfs);
+	}
+	
+	public void removeShelf(Shelf shelf) {
+		
+		shelfs.remove(shelf);
+		
+	}
+	
+	public void updateShelfState(Shelf shelf, ShelfStates newState) {
+		
+		this.shelfs.put(shelf, newState);
+	}
+	
+	
+	public void setShelfToDispatched(Shelf shelf) {
+		
+		shelfs.remove(shelf);
+		
 	}
 	
 	public void setDispatched(boolean dispatched) {

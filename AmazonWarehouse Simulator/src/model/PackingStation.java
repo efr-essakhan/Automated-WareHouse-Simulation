@@ -29,14 +29,16 @@ public class PackingStation extends Actor {
 
 	@Override
 	public void act() {
+		
+		
 		Order order = getOrders().pollFirst();
 		
 		if (order != null) {
 			//Take a shelf from the order's HashSet
-			for (Shelf shelf : order.getShelfs()) {
+			for (Shelf shelf : order.getShelfs().keySet()) {
 				
 				//Holds the best responses to the proposal and the Robot
-				Proposal proposal = new Proposal(shelf, this);
+				Proposal proposal = new Proposal(order, shelf, this);
 				
 				//Propose shelf to each robot
 				for (Actor robot : robots) {
@@ -45,12 +47,8 @@ public class PackingStation extends Actor {
 					Integer stepsToTake = robot1.analyseProposal(proposal);
 					
 					if (stepsToTake != null) {
-						//Set the first potential robot
-						if (proposal.getRobotForTheJob() == null) {
-							proposal.setLowestSteps(stepsToTake);
-							proposal.setRobotForTheJob(robot1);
-						}//Check if this robot can be Set the Robot for the job with its corresponding steps.
-						else if (proposal.getLowestSteps() > stepsToTake) {
+						//Set the first potential robot //Check if this robot can be Set the Robot for the job with its corresponding steps.
+						if (proposal.getRobotForTheJob() == null || proposal.getLowestSteps() > stepsToTake) {
 							proposal.setLowestSteps(stepsToTake);
 							proposal.setRobotForTheJob(robot1);
 						}
@@ -61,8 +59,11 @@ public class PackingStation extends Actor {
 				if (proposal.getRobotForTheJob() != null) {
 					
 					proposal.getRobotForTheJob().obeyProposal(proposal);
+					order.updateShelfState(shelf, ShelfStates.WORKEDON);
 					
-					
+				}
+				else {
+					break;
 				}
 				
 			}

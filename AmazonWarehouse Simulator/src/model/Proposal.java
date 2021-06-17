@@ -10,11 +10,13 @@ public class Proposal {
 	private int lowestSteps;
 	private Robot robotForTheJob;
 	private Shelf shelf;
+	private Order order;
 	private PackingStation packingStation;
 	
-	public Proposal(Shelf shelf, PackingStation packingStation) {
+	public Proposal(Order order, Shelf shelf, PackingStation packingStation) {
 		this.shelf = shelf;
 		this.packingStation = packingStation;
+		this.order = order;
 		lowestSteps = -1;
 		robotForTheJob = null;
 	}

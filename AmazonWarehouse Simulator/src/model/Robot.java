@@ -8,6 +8,7 @@ public class Robot extends Actor {
 	private ChargingPod chargingPod; 
 	private int Charge;
 	private boolean carrying;
+	private Proposal proposal; //current assignment
 	
 	public Robot(int x, int y) {
 		
