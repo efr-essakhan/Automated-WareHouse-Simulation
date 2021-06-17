@@ -8,9 +8,9 @@ import java.util.List;
 public class Order {
 	
 	private int ticksToPack; //number of ticks it takes to pack it
-	private boolean dispatched;  //Delivery dispatched or not
+	private State state; //The state of the Order
 
-	private HashMap<Shelf, ShelfStates> shelfs; // Values: Null = Not touched yet, False = Dispatches, 
+	private HashMap<Shelf, State> shelfs; //Holds the shelf and its state respective of the order.
 	
 
 	
@@ -31,19 +31,19 @@ public class Order {
 	public Order(int ticksToPack) {
 		this.ticksToPack = ticksToPack;
 		shelfs = new HashMap<>();
-		dispatched = false;
+		state = State.WAITING;
 		
 	}
 	
-	public HashMap<Shelf,ShelfStates> getShelfs() {
+	public HashMap<Shelf,State> getShelfs() {
 		return shelfs;
 	}
 	
 	public void addShelf(Shelf shelf) {
-		this.shelfs.put(shelf, ShelfStates.WAITING);
+		this.shelfs.put(shelf, State.WAITING);
 	}
 	
-	public void addShelfs(HashMap<Shelf,ShelfStates> shelfs) {
+	public void addShelfs(HashMap<Shelf,State> shelfs) {
 		this.shelfs.putAll(shelfs);
 	}
 	
@@ -53,7 +53,7 @@ public class Order {
 		
 	}
 	
-	public void updateShelfState(Shelf shelf, ShelfStates newState) {
+	public void updateShelfState(Shelf shelf, State newState) {
 		
 		this.shelfs.put(shelf, newState);
 	}
@@ -63,10 +63,6 @@ public class Order {
 		
 		shelfs.remove(shelf);
 		
-	}
-	
-	public void setDispatched(boolean dispatched) {
-		this.dispatched = dispatched;
 	}
 
 	public int getTicksToPack() {

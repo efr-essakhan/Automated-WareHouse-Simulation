@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.canvas.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import aston.jpd.warehouse.ui.*?>
+
+<BorderPane prefHeight="600.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="aston.jpd.warehouse.ui.config.ConfigurationController">
+	<center>
+		<aston.jpd.warehouse.ui.WarehouseGrid fx:id="warehouseGrid" alignment="CENTER" />
+	</center>
+	<right>
+		<VBox BorderPane.alignment="CENTER">
+			<children>
+				<TitledPane animated="false" collapsible="false" text="Warehouse">
+					<content>
+						<AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity">
+							<children>
+								<GridPane alignment="TOP_CENTER" hgap="5.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" vgap="5.0" AnchorPane.leftAnchor="2.0" AnchorPane.topAnchor="2.0" GridPane.rowSpan="3" GridPane.valignment="TOP">
+									<children>
+										<Label text="Height:" />
+										<Slider fx:id="heightSlider" blockIncrement="2.0" majorTickUnit="2.0" max="15.0" min="3.0" minorTickCount="1" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="6.0" GridPane.columnIndex="1" />
+										<Label text="Width:" GridPane.rowIndex="1" />
+										<Slider fx:id="widthSlider" majorTickUnit="2.0" max="15.0" min="3.0" minorTickCount="1" showTickLabels="true" showTickMarks="true" snapToTicks="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+									</children>
+									<columnConstraints>
+										<ColumnConstraints prefWidth="100.0" />
+										<ColumnConstraints prefWidth="175.0" />
+									</columnConstraints>
+									<rowConstraints>
+										<RowConstraints />
+										<RowConstraints />
+									</rowConstraints>
+								</GridPane>
+
+							</children>
+						</AnchorPane>
+					</content>
+				</TitledPane>
+				<TitledPane animated="false" collapsible="false" text="Orders">
+					<content>
+						<AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity">
+							<children>
+								<GridPane alignment="CENTER" hgap="5.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" vgap="5.0" AnchorPane.leftAnchor="2.0" AnchorPane.topAnchor="2.0">
+									<children>
+										<TextField fx:id="seedText" />
+										<Button fx:id="generateButton" mnemonicParsing="false" onAction="#generatePressed" text="Generate" GridPane.columnIndex="1" GridPane.halignment="RIGHT" />
+                                    	<ListView fx:id="ordersList" prefHeight="150.0" GridPane.columnSpan="2" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS" />
+									</children>
+									<columnConstraints>
+										<ColumnConstraints maxWidth="1.7976931348623157E308" percentWidth="65.0" />
+										<ColumnConstraints maxWidth="1.7976931348623157E308" percentWidth="35.0" />
+									</columnConstraints>
+									<rowConstraints>
+										<RowConstraints />
+										<RowConstraints />
+										<RowConstraints />
+										<RowConstraints />
+                              <RowConstraints />
+									</rowConstraints>
+								</GridPane>
+							</children>
+						</AnchorPane>
+					</content>
+				</TitledPane>
+				<TitledPane animated="false" collapsible="false" text="Robots">
+					<content>
+						<AnchorPane>
+							<children>
+								<GridPane alignment="CENTER" hgap="5.0" vgap="5.0" AnchorPane.leftAnchor="2.0" AnchorPane.topAnchor="2.0">
+									<children>
+										<Label text="Capacity:" />
+										<Label text="Charge speed:" GridPane.rowIndex="1" />
+										<Slider fx:id="chargingSpeedSlider" blockIncrement="1.0" majorTickUnit="1.0" max="5.0" min="1.0" minorTickCount="0" scaleShape="false" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="1.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+										<Slider fx:id="capacitySlider" majorTickUnit="20.0" minorTickCount="1" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="25.0" GridPane.columnIndex="1">
+											<padding>
+												<Insets top="10.0" />
+											</padding>
+										</Slider>
+									</children>
+									<columnConstraints>
+										<ColumnConstraints prefWidth="100.0" />
+										<ColumnConstraints prefWidth="175.0" />
+									</columnConstraints>
+									<rowConstraints>
+										<RowConstraints />
+										<RowConstraints />
+									</rowConstraints>
+								</GridPane>
+							</children>
+						</AnchorPane>
+					</content>
+				</TitledPane>
+			</children>
+		</VBox>
+	</right>
+	<top>
+		<ToolBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+			<items>
+				<Button fx:id="robotToolbarButton" mnemonicParsing="false" onAction="#toolbarButtonPressed" text="Robot" />
+				<Button fx:id="shelfToolbarButton" mnemonicParsing="false" onAction="#toolbarButtonPressed" text="Shelf" />
+				<Button fx:id="stationToolbarButton" mnemonicParsing="false" onAction="#toolbarButtonPressed" text="Station" />
+				<Button fx:id="deleteToolbarButton" mnemonicParsing="false" onAction="#toolbarButtonPressed" text="Delete" />
+              <Pane HBox.hgrow="ALWAYS" />
+            <Button mnemonicParsing="false" onAction="#clearWarehousePressed" styleClass="toolButton" text="Clear" />
+            <Button mnemonicParsing="false" onAction="#loadWarehousePressed" styleClass="toolButton" text="Load..." />
+            <Button mnemonicParsing="false" onAction="#saveWarehousePressed" styleClass="toolButton" text="Save..." />
+			</items>
+		</ToolBar>
+	</top>
+	<bottom>
+		<Button fx:id="startButton" contentDisplay="CENTER" defaultButton="true" mnemonicParsing="false" onAction="#startPressed" text="Start!" textAlignment="CENTER" BorderPane.alignment="CENTER_RIGHT" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="4" GridPane.valignment="CENTER">
+			<BorderPane.margin>
+				<Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+			</BorderPane.margin>
+		</Button>
+
+	</bottom>
+</BorderPane>

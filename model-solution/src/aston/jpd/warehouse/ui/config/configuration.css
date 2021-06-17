@@ -1,0 +1,28 @@
+.activeState {
+    -fx-background-color: linear-gradient(#ff5400, #be1d00);
+    -fx-background-radius: 30;
+    -fx-background-insets: 0;
+    -fx-text-fill: white;
+}
+
+.inactiveState {
+    -fx-background-color: linear-gradient(#aaa, #000);
+    -fx-background-radius: 30;
+    -fx-background-insets: 0;
+    -fx-text-fill: white;
+}
+
+.toolButton {
+    -fx-background-color: linear-gradient(lime, green);
+    -fx-background-radius: 30;
+    -fx-background-insets: 0;
+    -fx-text-fill: white;
+}
+
+.toolButton:hover {
+	-fx-background-color: linear-gradient(#0e0, #070);
+}
+
+.toolButton:pressed {
+	-fx-background-color: linear-gradient(green, lime);
+}

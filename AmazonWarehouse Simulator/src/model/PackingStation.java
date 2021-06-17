@@ -12,7 +12,7 @@ import java.util.TreeMap;
 public class PackingStation extends Actor {
 	
 	private final static boolean OBSTRUCTIVE = false; //Can robot move through it?
-	private static LinkedList<Order> orders;
+	private static List<Order> orders;
 	private List<Actor> robots;
 
 	public PackingStation(int x, int y, List<Actor> robots) {
@@ -21,9 +21,9 @@ public class PackingStation extends Actor {
 
 	}
 	
-	public PackingStation(int x, int y, List<Actor> robots,String uid) {
+	public PackingStation(int x, int y, List<Actor> robots, String uid) {
 		super(x, y, uid);
-		orders = new LinkedList<Order>();
+		orders = new ArrayList<Order>();
 		this.robots = robots;
 	}
 
@@ -31,45 +31,50 @@ public class PackingStation extends Actor {
 	public void act() {
 		
 		
-		Order order = getOrders().pollFirst();
+		//Prioritise packing
+		// 
 		
-		if (order != null) {
-			//Take a shelf from the order's HashSet
-			for (Shelf shelf : order.getShelfs().keySet()) {
+		
+		//Deal with orders
+		if (!orders.isEmpty()) {
+			
+			for (Order order : orders) {
 				
-				//Holds the best responses to the proposal and the Robot
-				Proposal proposal = new Proposal(order, shelf, this);
-				
-				//Propose shelf to each robot
-				for (Actor robot : robots) {
-					Robot robot1 = (Robot) robot;
+				//Take a shelf from the order's HashMap
+				for (Shelf shelf : order.getShelfs().keySet()) {
 					
-					Integer stepsToTake = robot1.analyseProposal(proposal);
+					//Holds the best responses to the proposal and the Robot
+					Proposal proposal = new Proposal(order, shelf, this);
 					
-					if (stepsToTake != null) {
-						//Set the first potential robot //Check if this robot can be Set the Robot for the job with its corresponding steps.
-						if (proposal.getRobotForTheJob() == null || proposal.getLowestSteps() > stepsToTake) {
-							proposal.setLowestSteps(stepsToTake);
-							proposal.setRobotForTheJob(robot1);
+					//Propose shelf to each robot
+					for (Actor robot : robots) {
+						Robot robot1 = (Robot) robot;
+						
+						Integer stepsToTake = robot1.analyseProposal(proposal);
+						
+						if (stepsToTake != null) {
+							//Set the first potential robot //Check if this robot can be Set the Robot for the job with its corresponding steps.
+							if (proposal.getRobotForTheJob() == null || proposal.getLowestSteps() > stepsToTake) {
+								proposal.setLowestSteps(stepsToTake);
+								proposal.setRobotForTheJob(robot1);
+							}
 						}
 					}
-				}
-				
-				//If there is a robot suitable to take the job, give it to them. Else try again next tick.
-				if (proposal.getRobotForTheJob() != null) {
 					
-					proposal.getRobotForTheJob().obeyProposal(proposal);
-					order.updateShelfState(shelf, ShelfStates.WORKEDON);
+					//If there is a robot suitable to take the job, give it to them. Else try again next tick.
+					if (proposal.getRobotForTheJob() != null) {
+						
+						proposal.getRobotForTheJob().obeyProposal(proposal);
+						order.updateShelfState(shelf, State.WORKEDON);
+						
+					}
+					else {
+						break;
+					}
 					
-				}
-				else {
-					break;
 				}
 				
 			}
-			
-			
-
 			
 		}
 		
