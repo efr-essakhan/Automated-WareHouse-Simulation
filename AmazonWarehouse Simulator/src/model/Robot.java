@@ -22,6 +22,7 @@ public class Robot extends Actor {
 		
 		chargingPod = new ChargingPod(this, ChargingPodUid); //Assign a chargingpod automatically
 		setCarrying(false); // not carrying anything at the start.
+		proposal = null;
 	}
 	
 	public ChargingPod getChargingPod() {
@@ -61,7 +62,14 @@ public class Robot extends Actor {
 
 	@Override
 	public void act() {
-		// TODO Auto-generated method stub
+		if (proposal != null) {
+			
+			//Figure out path and go to the shelf.
+			proposal.getShelf();
+			
+			//Once 
+			
+		}
 		
 	}
 

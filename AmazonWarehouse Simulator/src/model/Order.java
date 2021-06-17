@@ -8,6 +8,7 @@ import java.util.List;
 public class Order {
 	
 	private int ticksToPack; //number of ticks it takes to pack it
+	private int tickProgress; //to keep track how many ticks packed, when packing.
 	private State state; //The state of the Order
 
 	private HashMap<Shelf, State> shelfs; //Holds the shelf and its state respective of the order.
@@ -30,8 +31,9 @@ public class Order {
 	
 	public Order(int ticksToPack) {
 		this.ticksToPack = ticksToPack;
+		tickProgress = 0;
 		shelfs = new HashMap<>();
-		state = State.WAITING;
+		state = State.UNCOLLECTED;
 		
 	}
 	
@@ -40,7 +42,7 @@ public class Order {
 	}
 	
 	public void addShelf(Shelf shelf) {
-		this.shelfs.put(shelf, State.WAITING);
+		this.shelfs.put(shelf, State.UNCOLLECTED);
 	}
 	
 	public void addShelfs(HashMap<Shelf,State> shelfs) {
@@ -58,15 +60,26 @@ public class Order {
 		this.shelfs.put(shelf, newState);
 	}
 	
-	
-	public void setShelfToDispatched(Shelf shelf) {
-		
-		shelfs.remove(shelf);
-		
-	}
+//	public State getShelfState(Shelf shelf) {
+//		
+//		return this.shelfs.get(shelf);
+//	}
+//	
 
 	public int getTicksToPack() {
 		return ticksToPack;
+	}
+
+	public State getState() {
+		return state;
+	}
+
+	public void pack() {
+		tickProgress++;
+		
+		if (tickProgress == ticksToPack) {
+			this.state = State.DISPATCHED;
+		}
 	}
 
 }
