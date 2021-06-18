@@ -1,15 +1,26 @@
 package model;
 
-public class Pythagoras {
+public class Pythagoras extends PathEstimationAlgorithm {
 	
-	private Shelf targetShelf;
-	private PackingStation targetPackingStation;
- 	private Robot self;
  	
  	public Pythagoras(Proposal proposal) {
-		this.targetShelf = proposal.getShelf();
-		this.targetPackingStation = proposal.getPackingStation();
-		this.self = proposal.getRobotForTheJob();
+ 		super(proposal);
 	}
+ 	
+ 	public Double calculateDistance() {
+ 		
+ 		//robot to shelf
+ 		double distanceRS = Math.sqrt(sqNum((shelfX-robotX))+sqNum((shelfY-robotY)));
+ 		
+ 		//Shelf to PackingStation
+ 		double distanceSP = Math.sqrt(sqNum((packingX-shelfX))+sqNum((packingY-shelfY)));
+		return distanceSP+distanceRS;
+ 	}
+ 	
+ 	private int sqNum(int num) {
+ 		
+ 		return num*num;
+ 		
+ 	}
 
 }

@@ -69,6 +69,9 @@ public class PackingStation extends Actor {
 										proposal.setLowestSteps(stepsToTake);
 										proposal.setRobotForTheJob(robot1);
 									}
+								}else {
+									//Charge the robot
+									
 								}
 							}
 

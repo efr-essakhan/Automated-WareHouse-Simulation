@@ -9,6 +9,7 @@ public class Robot extends Actor {
 	private int Charge;
 	private boolean carrying;
 	private Proposal proposal; //current assignment
+//	private PathFindingAlgorithm pythagoras;
 	
 	public Robot(int x, int y) {
 		
@@ -23,6 +24,7 @@ public class Robot extends Actor {
 		chargingPod = new ChargingPod(this, ChargingPodUid); //Assign a chargingpod automatically
 		setCarrying(false); // not carrying anything at the start.
 		proposal = null;
+//		pythagoras = new Pythagoras(proposal);
 	}
 	
 	public ChargingPod getChargingPod() {
@@ -46,13 +48,11 @@ public class Robot extends Actor {
 	 * @param proposal object to retrieve the shelf to travel to to pick up items & packingStation that proposed the assignment
 	 * @return number of steps it will take to complete the assignment
 	 */
-	public int analyseProposal(Proposal proposal) {
+	public Integer analyseProposal(Proposal proposal) {
 		
-		//do pathfinding first.
-		//decide if it can do the assignment based on fuel count.
+		PathEstimationAlgorithm estimationAlgo = new SimplePathEst(proposal);
 		
-		return Charge;
-		
+		return (Integer) estimationAlgo.calculateDistance().intValue();
 	}
 	
 	public void obeyProposal(Proposal proposal) {
