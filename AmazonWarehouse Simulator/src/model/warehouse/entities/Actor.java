@@ -64,6 +64,9 @@ public abstract class Actor {
 		location.setY(y);
 	}
 	
+	public void setLocation(Location loc) {
+		setLocation(loc.getX(), loc.getY());
+	}
 
 	public Location getLocation() {
 		return location;

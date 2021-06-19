@@ -1,8 +1,12 @@
 package model.warehouse.entities;
 
 import model.strategies.PathEstimationAlgorithm;
+import model.strategies.PathFindingAlgorithm;
 import model.strategies.SimplePathEst;
+import model.strategies.SimplePathFindingAlgorithm;
+import model.warehouse.Location;
 import model.warehouse.Proposal;
+import model.warehouse.State;
 
 public class Robot extends Actor {
 	
@@ -13,7 +17,8 @@ public class Robot extends Actor {
 	private int Charge;
 	private boolean carrying;
 	private Proposal proposal; //current assignment
-//	private PathFindingAlgorithm pythagoras;
+	private State state;
+	private PathFindingAlgorithm pathFindingAlgo;
 	
 	public Robot(int x, int y) {
 		
@@ -28,7 +33,7 @@ public class Robot extends Actor {
 		chargingPod = new ChargingPod(this, ChargingPodUid); //Assign a chargingpod automatically
 		setCarrying(false); // not carrying anything at the start.
 		proposal = null;
-//		pythagoras = new Pythagoras(proposal);
+		pathFindingAlgo = null;
 	}
 	
 	public ChargingPod getChargingPod() {
@@ -42,9 +47,6 @@ public class Robot extends Actor {
 	public void increaseCharge() {
 		Charge = getCharge()+1;
 	}
-	
-
-
 
 	/**
 	 * Checks if it can complete the assignment with fuel count, if so it returns the
@@ -60,20 +62,32 @@ public class Robot extends Actor {
 	}
 	
 	public void obeyProposal(Proposal proposal) {
-//		return 1;
+		this.proposal = proposal;
+		pathFindingAlgo = new SimplePathFindingAlgorithm(this.proposal);
+		setState(State.COLLECTING);
 	}
 	
 
 	@Override
 	public void act() {
-		if (proposal != null) {
+		
+		if (proposal != null && pathFindingAlgo != null) {
+//			PathFindingAlgorithm pathFindingAlg = new SimplePathFindingAlgorithm(proposal);
+			this.setLocation();
 			
-			//Figure out path and go to the shelf.
-			proposal.getShelf();
+			
+			//Move using loc
+			
+			
+			
 			
 			//Once 
 			
 		}
+		
+	}
+	
+	private void goTo() {
 		
 	}
 
@@ -94,6 +108,16 @@ public class Robot extends Actor {
 
 	public void setCarrying(boolean carrying) {
 		this.carrying = carrying;
+	}
+
+
+	public State getState() {
+		return state;
+	}
+
+
+	public void setState(State state) {
+		this.state = state;
 	}
 
 }
