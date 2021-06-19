@@ -63,7 +63,7 @@ public class PackingStation extends Actor {
 
 								Integer stepsToTake = robot1.analyseProposal(proposal);
 
-								if (stepsToTake != null) {
+								if (stepsToTake != null) { // null = robot not possible to make the trip
 									//Set the first potential robot //Check if this robot can be Set the Robot for the job with its corresponding steps.
 									if (proposal.getRobotForTheJob() == null || proposal.getLowestSteps() > stepsToTake) {
 										proposal.setLowestSteps(stepsToTake);
