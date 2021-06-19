@@ -1,4 +1,6 @@
-package model;
+package model.strategies;
+
+import model.warehouse.Proposal;
 
 //Manhattan
 public class SimplePathEst extends PathEstimationAlgorithm {

@@ -1,4 +1,9 @@
-package model;
+package model.strategies;
+
+import model.warehouse.Proposal;
+import model.warehouse.entities.PackingStation;
+import model.warehouse.entities.Robot;
+import model.warehouse.entities.Shelf;
 
 public abstract class PathEstimationAlgorithm {
 	

@@ -1,4 +1,7 @@
-package model;
+package model.warehouse.entities;
+
+import model.warehouse.Location;
+
 /**
  * 
  * A simple model of an actor in a simulation.

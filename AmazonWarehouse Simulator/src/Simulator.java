@@ -7,13 +7,13 @@ import java.util.ListIterator;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import model.Actor;
-import model.ChargingPod;
-import model.Grid;
-import model.Order;
-import model.PackingStation;
-import model.Robot;
-import model.Shelf;
+import model.warehouse.Grid;
+import model.warehouse.Order;
+import model.warehouse.entities.Actor;
+import model.warehouse.entities.ChargingPod;
+import model.warehouse.entities.PackingStation;
+import model.warehouse.entities.Robot;
+import model.warehouse.entities.Shelf;
 
 public class Simulator {
 	

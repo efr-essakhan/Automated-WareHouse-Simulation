@@ -1,4 +1,4 @@
-package model;
+package model.warehouse.entities;
 
 public class Shelf extends Actor {
 	

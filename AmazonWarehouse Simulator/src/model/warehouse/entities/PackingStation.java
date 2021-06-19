@@ -1,4 +1,4 @@
-package model;
+package model.warehouse.entities;
 
 
 import java.util.ArrayList;
@@ -8,6 +8,11 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+
+import model.warehouse.Order;
+import model.warehouse.Proposal;
+import model.warehouse.State;
+
 import java.util.TreeMap;
 
 public class PackingStation extends Actor {

@@ -1,4 +1,6 @@
-package model;
+package model.strategies;
+
+import model.warehouse.Proposal;
 
 public class Pythagoras extends PathEstimationAlgorithm {
 	

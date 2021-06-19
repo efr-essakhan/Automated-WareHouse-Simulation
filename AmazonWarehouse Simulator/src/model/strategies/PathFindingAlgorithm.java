@@ -1,4 +1,4 @@
-package model;
+package model.strategies;
 
 public interface PathFindingAlgorithm {
 
