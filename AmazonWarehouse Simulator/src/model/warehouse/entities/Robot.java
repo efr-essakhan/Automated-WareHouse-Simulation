@@ -72,16 +72,18 @@ public class Robot extends Actor {
 	public void act() {
 		
 		if (proposal != null && pathFindingAlgo != null) {
-//			PathFindingAlgorithm pathFindingAlg = new SimplePathFindingAlgorithm(proposal);
-			this.setLocation();
+			
+			Location newLoc = pathFindingAlgo.getNewLocationForRobot();
+			
+			//If New Location is not just the old location then:
+			if (newLoc.getX() != this.getLocation().getX() && newLoc.getY() != this.getLocation().getY()) {
+				//We know it is is a new location to move to, so set it as the robots location. else:
+				this.setLocation(pathFindingAlgo.getNewLocationForRobot());
+			}else { //If new Location == Old location, that means that there is nomore to trans
+				
+			}
 			
 			
-			//Move using loc
-			
-			
-			
-			
-			//Once 
 			
 		}
 		
@@ -118,6 +120,29 @@ public class Robot extends Actor {
 
 	public void setState(State state) {
 		this.state = state;
+	}
+	
+	public void switchState() {
+		switch (state) {
+		case UNCOLLECTED:
+			state = State.COLLECTING;
+			pathFindingAlgo.setNewTargetDisplacement();
+			break;
+		case COLLECTING:
+			state = State.COLLECTED;
+			pathFindingAlgo.setNewTargetDisplacement();
+			break;
+		case COLLECTED:
+			state = State.DISPATCHED;
+			pathFindingAlgo.setNewTargetDisplacement();
+			break;
+		case DISPATCHED:
+			state = State.UNCOLLECTED;
+			pathFindingAlgo.setNewTargetDisplacement();
+			break;
+		default:
+			break;
+		}
 	}
 
 }

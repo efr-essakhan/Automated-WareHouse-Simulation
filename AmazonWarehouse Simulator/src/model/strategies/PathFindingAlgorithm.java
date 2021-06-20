@@ -14,6 +14,10 @@ public abstract class PathFindingAlgorithm extends Algorithm {
  		super(proposal);
 	}
  	
+	public void setNewTargetDisplacement() {
+		targetDisplacement = calcDisplacementBasedOnState();
+	}
+ 	
  	/**
  	 * Called to get the displacement x,y for a robot to the actor location.
  	 * @param actor to go to

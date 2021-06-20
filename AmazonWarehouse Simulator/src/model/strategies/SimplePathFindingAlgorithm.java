@@ -40,36 +40,55 @@ public class SimplePathFindingAlgorithm extends PathFindingAlgorithm{
 		return displacement;
 		
 	}
+	
+	public void setNewTargetDisplacement() {
+		targetDisplacement = calcDisplacementBasedOnState();
+	}
 
+	/**
+	 * Provides a location that gives the next location for the robot the placed on to move towards the target.
+	 */
 	@Override
 	public Location getNewLocationForRobot() {
 		
-		targetDisplacement = calcDisplacementBasedOnState(); //hold an instance reference to do this as you will be subtracting from it.
+		setNewTargetDisplacement(); //hold an instance reference to do this as you will be subtracting from it.
 		
 		//add to current robot loc the x first.
 		
-		Location Loc = selfRobot.getLocation();
+		Location loc = selfRobot.getLocation();
 		
 		if (targetDisplacement.getX() != 0) { //first move column wise
 			
 			//find out if targetDisplacement.getX() is neg or pos number
-			
 			if (targetDisplacement.getX() > 0) {
-				Loc.setX(Loc.getX() + 1);
+				loc.setX(loc.getX() + 1);
 				targetDisplacement.setX(targetDisplacement.getX() - 1);
 				
-			} else (targetDisplacement.getX() < 0) {
-				Loc.setX(Loc.getX() - 1);
+			} else if (targetDisplacement.getX() < 0) {
+				loc.setX(loc.getX() - 1);
 				targetDisplacement.setX(targetDisplacement.getX() + 1);
+			}
+		} else if (targetDisplacement.getY() != 0) { //Next move row wise
+			
+			if (targetDisplacement.getY() > 0) {
+				loc.setX(loc.getX() + 1);
+				targetDisplacement.setX(targetDisplacement.getX() - 1);
 				
+			} else if (targetDisplacement.getY() < 0) {
+				loc.setX(loc.getX() - 1);
+				targetDisplacement.setX(targetDisplacement.getX() + 1);
 			}
 			
-
+		} 
+		
+		//If New Location is just the old location then:
+		if (loc == selfRobot.getLocation()) {
+			return null; //If new Location == Old location, that means that there is no more displacement, hence return a null, indicating no more displacement.
+		}else {
+			return loc;
 		}
 		
 		
-		
-		return null;
 	}
 	
 	
