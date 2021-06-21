@@ -75,7 +75,7 @@ public class Grid {
 				Location loc = (Location) grid[i][j];
 				
 				if (loc != null) {
-					
+					//TODO: Fix orientation of this grid.
 					for (Actor actor : loc.getActors()) {
 						
 						if (actor != null) {

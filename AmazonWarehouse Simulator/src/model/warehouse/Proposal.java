@@ -11,21 +11,21 @@ import model.warehouse.entities.Shelf;
  */
 public class Proposal { 
 	
-	private int lowestSteps;
+	private Integer lowestSteps;
 	private Robot robotForTheJob;
 	private Shelf shelf;
 	private Order order;
 	private PackingStation packingStation;
 	
-	public Proposal(Order order, Shelf shelf, PackingStation packingStation) {
+	public Proposal(Order order, Shelf shelf, PackingStation packingStation, Robot robot) {
 		this.shelf = shelf;
 		this.packingStation = packingStation;
 		this.order = order;
-		lowestSteps = -1;
-		robotForTheJob = null;
+		lowestSteps = null;
+		robotForTheJob = robot;
 	}
 	
-	public int getLowestSteps() {
+	public Integer getLowestSteps() {
 		return lowestSteps;
 	}
 	public void setLowestSteps(int lowestSteps) {

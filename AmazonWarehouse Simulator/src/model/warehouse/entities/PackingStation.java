@@ -18,8 +18,8 @@ import java.util.TreeMap;
 public class PackingStation extends Actor {
 
 	private final static boolean OBSTRUCTIVE = false; //Can robot move through it?
-	private static List<Order> orders;
-	private List<Actor> robots;
+	private static List<Order> orders; //List of all orders in the simulation
+	private List<Actor> robots; //List of all robots in the simulation
 	private Order packingThisOrder; //set by a robot
 
 	public PackingStation(int x, int y, List<Actor> robots) {
@@ -50,38 +50,38 @@ public class PackingStation extends Actor {
 			//Deal with orders
 			if (!orders.isEmpty()) {
 
-				for (Order order : orders) {
+				for (Order order : orders) { //Take order one by one
 
 					//Take a shelf from the order's HashMap
 					for (Entry<Shelf, State> shelfs :  order.getShelfs().entrySet()) {
 						Shelf shelf = shelfs.getKey();
 						State currentState = shelfs.getValue();
 
-						if (currentState == State.UNCOLLECTED) {
+						if (currentState == State.UNCOLLECTED) { //Order still to be collected, therefore try to assign a robot to it
 							
-							//Holds the best responses to the proposal and the Robot
-							Proposal proposal = new Proposal(order, shelf, this);
-
+							Proposal proposal = null;
 							//Propose shelf to each robot
 							for (Actor robot : robots) {
 								Robot robot1 = (Robot) robot;
+								
+								//intended to holds the best responses to the proposal from the Robot
+								proposal = new Proposal(order, shelf, this, robot1);
 
 								Integer stepsToTake = robot1.analyseProposal(proposal);
 
-								if (stepsToTake != null) { // null = robot not possible to make the trip
-									//Set the first potential robot //Check if this robot can be Set the Robot for the job with its corresponding steps.
-									if (proposal.getRobotForTheJob() == null || proposal.getLowestSteps() > stepsToTake) {
+								if (stepsToTake != null) { // null = this robot not possible to make the trip
+									//Set the first potential robot OR Check if this robot can be Set the Robot for the job with its corresponding steps.
+									if ( proposal.getLowestSteps() == null || proposal.getLowestSteps() > stepsToTake ) {
 										proposal.setLowestSteps(stepsToTake);
-										proposal.setRobotForTheJob(robot1);
 									}
 								}else {
-									//Charge the robot
+									//TODO:Charge the robot
 									
 								}
 							}
 
 							//If there is a robot suitable to take the job, give it to them. Else try again next tick.
-							if (proposal.getRobotForTheJob() != null) {
+							if (proposal.getLowestSteps() != null) {
 
 								proposal.getRobotForTheJob().obeyProposal(proposal);
 								order.updateShelfState(shelf, State.COLLECTING);

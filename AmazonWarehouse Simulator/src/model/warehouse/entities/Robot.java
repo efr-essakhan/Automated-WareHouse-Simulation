@@ -14,7 +14,7 @@ public class Robot extends Actor {
 	
 	public static int CAPACITY = 0; //capacity of the battery of all the robots
 	private ChargingPod chargingPod; 
-	private int Charge;
+	private int Charge = 20; //TODO: Change back to zero;
 	private boolean carrying;
 	private Proposal proposal; //current assignment
 	private State state;
@@ -34,6 +34,7 @@ public class Robot extends Actor {
 		setCarrying(false); // not carrying anything at the start.
 		proposal = null;
 		pathFindingAlgo = null;
+		state = State.UNCOLLECTED;
 	}
 	
 	public ChargingPod getChargingPod() {
@@ -58,13 +59,19 @@ public class Robot extends Actor {
 		
 		PathEstimationAlgorithm estimationAlgo = new SimplePathEst(proposal);
 		
-		return (Integer) estimationAlgo.calculateDistance().intValue();
+		Double distance = estimationAlgo.calculateDistance();
+		if (distance != null) {
+			return (Integer) distance.intValue();
+		}else {
+			return null;
+		}
+		
 	}
 	
 	public void obeyProposal(Proposal proposal) {
 		this.proposal = proposal;
 		pathFindingAlgo = new SimplePathFindingAlgorithm(this.proposal);
-		setState(State.COLLECTING);
+		this.switchState();
 	}
 	
 
@@ -75,23 +82,18 @@ public class Robot extends Actor {
 			
 			Location newLoc = pathFindingAlgo.getNewLocationForRobot();
 			
-			//If New Location is not just the old location then:
-			if (newLoc.getX() != this.getLocation().getX() && newLoc.getY() != this.getLocation().getY()) {
+			//If New Location is not just the old location (indicated by being null) then:
+			if (newLoc != null) {
 				//We know it is is a new location to move to, so set it as the robots location. else:
 				this.setLocation(pathFindingAlgo.getNewLocationForRobot());
-			}else { //If new Location == Old location, that means that there is nomore to trans
+			}else { //If new Location == Old location, indicated by null, that means that there is nomore to move and you are at your desired location
 				
+				this.switchState();
 			}
-			
-			
-			
 		}
 		
 	}
 	
-	private void goTo() {
-		
-	}
 
 	@Override
 	public String toString() {

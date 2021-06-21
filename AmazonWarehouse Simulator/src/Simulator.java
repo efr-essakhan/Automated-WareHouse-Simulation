@@ -47,6 +47,9 @@ public class Simulator {
 		//3) A tick constitutes calling act on each actor
 		
 		Simulator k = new Simulator(3,3, 20, 1);
+		
+		k.simulate();
+		
 
 	}
 	
@@ -57,17 +60,24 @@ public class Simulator {
 		actors = new HashMap<>();
 		simulationActorSetup(capacity, chargeSpeed);
 		
-	
+		
 		
 		
 	}
 	
 	public void simulate() {
 		
-		do {
-			
-		} while (simulationTerminate == false);
+		simulateOneTick();
+		simulateOneTick();
+		simulateOneTick();
+		simulateOneTick();
+		simulateOneTick();
+		simulateOneTick();
 		
+//		do {
+//			
+//		} while (simulationTerminate == false);
+//		
 	}
 	
 	
@@ -77,8 +87,8 @@ public class Simulator {
 	 * stations have done what they had to for this tick.
 	 */
 	public void simulateOneTick() {
-
-		List<Actor> actorList = actors.get("PackingStation");
+		List<Actor> actorList;
+		actorList = actors.get("PackingStation");
 		
 		for (Actor actor : actorList) {
 			actor.act();
@@ -102,6 +112,9 @@ public class Simulator {
 		for (Actor actor : actorList) {
 			actor.act();
 		}
+		
+		grid.addActorsToGrid(actorList);
+		System.out.println(grid.toString());
 
 	}
 	
@@ -124,7 +137,7 @@ public class Simulator {
 		actors.put("PackingStation", packingStation);
 
 		Order a = new Order(2);
-		a.addShelf((Shelf) actors.get(1));
+		a.addShelf((Shelf) actors.get("Shelf").get(0));
 		PackingStation.enterOrder(a);
 		
 
