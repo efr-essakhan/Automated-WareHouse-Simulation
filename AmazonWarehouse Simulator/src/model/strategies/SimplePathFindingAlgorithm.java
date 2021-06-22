@@ -54,9 +54,13 @@ public class SimplePathFindingAlgorithm extends PathFindingAlgorithm{
 		setNewTargetDisplacement(); //hold an instance reference to do this as you will be subtracting from it.
 		
 		//add to current robot loc the x first.
-		
-		Location loc = selfRobot.getLocation();
-		
+		Location loc = null;
+		try {
+			loc = (Location) selfRobot.getLocation().clone();
+		} catch (CloneNotSupportedException e) {
+			e.printStackTrace();
+		} 
+	
 		if (targetDisplacement.getY() != 0) { //first move column wise
 			
 			//find out if targetDisplacement.getX() is neg or pos number

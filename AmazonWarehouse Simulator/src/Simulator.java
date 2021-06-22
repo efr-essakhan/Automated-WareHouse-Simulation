@@ -46,7 +46,7 @@ public class Simulator {
 		//2) Move the simulation based on one tick first.
 		//3) A tick constitutes calling act on each actor
 		
-		Simulator k = new Simulator(3,4, 20, 1);
+		Simulator k = new Simulator(10,10, 20, 1);
 		
 		k.simulate();
 		
@@ -101,6 +101,12 @@ public class Simulator {
 		for (Actor actor : robots) {
 			actor.act();
 		}
+		
+		//Add to grid
+//		grid.addActorsToGrid(robots);
+//		grid.addActorsToGrid(shelfs);
+//		grid.addActorsToGrid(packingStations);
+
 		
 //		grid.addActorsToGrid(actorList);
 		System.out.println(grid);

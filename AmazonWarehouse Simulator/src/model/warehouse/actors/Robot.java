@@ -85,7 +85,7 @@ public class Robot extends Actor {
 			//If New Location is not just the old location (indicated by being null) then:
 			if (newLoc != null) {
 				//We know it is is a new location to move to, so set it as the robots location. else:
-				this.setLocation(pathFindingAlgo.getNewLocationForRobot());
+				this.setLocation(newLoc);
 			}else { //If new Location == Old location, indicated by null, that means that there is nomore to move and you are at your desired location
 				
 				this.switchState();

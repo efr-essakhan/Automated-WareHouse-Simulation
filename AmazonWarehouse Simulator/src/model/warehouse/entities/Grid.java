@@ -19,8 +19,37 @@ public class Grid {
 		grid = new Location[rows][columns]; //y,x
 
 	}
-
 	
+	/**
+	 * Updates the actors placement on the grid based on their location.
+	 */
+	public void updateActorsOnGrid() {
+		
+		for (int y = 0; y < grid.length; y++) {
+			for (int x = 0; x < grid[y].length; x++) {
+				
+				Location loc = grid[y][x];
+				
+				if (loc != null) {
+					
+					for (Actor actor : loc.getActors()) {
+						if (actor instanceof Robot) {
+							if (y == actor.getLocation().getY()) {
+								
+							}
+							
+						}
+						
+					}
+					
+				}
+				
+			}
+		}
+		
+	}
+
+	//TODO: Update location appropiately
 	public void addActorsToGrid(List<Actor> actors) {
 		
 		for (Actor actor : actors) {

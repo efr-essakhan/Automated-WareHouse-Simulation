@@ -12,7 +12,7 @@ import model.warehouse.actors.Actor;
  * @author Essa
  * @version 2021
  */
-public class Location {
+public class Location implements Cloneable {
 	
 	private int y;
 	private int x;
@@ -58,5 +58,10 @@ public class Location {
 	
 	public int getX() {
 		return x;
+	}
+	
+	public Object clone() throws CloneNotSupportedException {
+		// TODO Auto-generated method stub
+		return super.clone();
 	}
 }
