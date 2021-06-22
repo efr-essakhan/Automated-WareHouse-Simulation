@@ -12,13 +12,13 @@ public class ChargingPod extends Actor {
 	
 	public ChargingPod(Actor b) {
 
-		super(b.getLocation().getX(), b.getLocation().getY(), null);
+		super(b.getLocation().getY(), b.getLocation().getX(), null);
 
 	}
 	
 	
 	public ChargingPod(Actor b, String uid) {
-		super(b.getLocation().getX(), b.getLocation().getY(), uid);
+		super(b.getLocation().getY(), b.getLocation().getX(), uid);
 		this.bot = (Robot) b;
 	}
 	

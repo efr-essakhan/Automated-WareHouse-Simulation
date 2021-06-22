@@ -7,24 +7,24 @@ import java.util.Set;
 import model.warehouse.actors.Actor;
 
 /**
- * Represent a location x,y on the map.
+ * Represent a location y,x on the map.
  * 
  * @author Essa
  * @version 2021
  */
 public class Location {
 	
-	private int x;
 	private int y;
+	private int x;
 	private Set<Actor> actors;
 	
-	public Location(int x, int y) {
-		this(x, y, null);
+	public Location(int y, int x) {
+		this(y, x, null);
 	}
 	
-	public Location(int x, int y, Actor actor) {
-		this.x = x;
+	public Location(int y, int x, Actor actor) {
 		this.y = y;
+		this.x = x;
 		actors = new HashSet<Actor>();
 		addActor(actor);
 	}
@@ -44,19 +44,19 @@ public class Location {
 		
 	}
 	
-	public void setX(int x) {
-		this.x = x;
-	}
-	
 	public void setY(int y) {
 		this.y = y;
 	}
 	
-	public int getX() {
-		return x;
+	public void setX(int x) {
+		this.x = x;
 	}
 	
 	public int getY() {
 		return y;
+	}
+	
+	public int getX() {
+		return x;
 	}
 }

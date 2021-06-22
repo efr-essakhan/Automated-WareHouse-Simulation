@@ -57,26 +57,26 @@ public class SimplePathFindingAlgorithm extends PathFindingAlgorithm{
 		
 		Location loc = selfRobot.getLocation();
 		
-		if (targetDisplacement.getX() != 0) { //first move column wise
+		if (targetDisplacement.getY() != 0) { //first move column wise
 			
 			//find out if targetDisplacement.getX() is neg or pos number
-			if (targetDisplacement.getX() > 0) {
-				loc.setX(loc.getX() + 1);
-				targetDisplacement.setX(targetDisplacement.getX() - 1);
-				
-			} else if (targetDisplacement.getX() < 0) {
-				loc.setX(loc.getX() - 1);
-				targetDisplacement.setX(targetDisplacement.getX() + 1);
-			}
-		} else if (targetDisplacement.getY() != 0) { //Next move row wise
-			
 			if (targetDisplacement.getY() > 0) {
-				loc.setX(loc.getX() + 1);
-				targetDisplacement.setX(targetDisplacement.getX() - 1);
+				loc.setY(loc.getY() + 1);
+				targetDisplacement.setY(targetDisplacement.getY() - 1);
 				
 			} else if (targetDisplacement.getY() < 0) {
-				loc.setX(loc.getX() - 1);
-				targetDisplacement.setX(targetDisplacement.getX() + 1);
+				loc.setY(loc.getY() - 1);
+				targetDisplacement.setY(targetDisplacement.getY() + 1);
+			}
+		} else if (targetDisplacement.getX() != 0) { //Next move row wise
+			
+			if (targetDisplacement.getX() > 0) {
+				loc.setY(loc.getY() + 1);
+				targetDisplacement.setY(targetDisplacement.getY() - 1);
+				
+			} else if (targetDisplacement.getX() < 0) {
+				loc.setY(loc.getY() - 1);
+				targetDisplacement.setY(targetDisplacement.getY() + 1);
 			}
 			
 		} 

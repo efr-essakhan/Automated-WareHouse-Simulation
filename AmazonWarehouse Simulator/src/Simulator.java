@@ -24,9 +24,9 @@ public class Simulator {
 	
 	private Grid grid;
 	private boolean simulationTerminate;
-	private ArrayList<Order> orders;
-//	private List<Actor> actors;
-	private Map<String, List<Actor>> actors;
+	private List<Actor> robots;
+	private List<Actor> shelfs;
+	private List<Actor> packingStations;
 	
 	public static void main(String[] args) { //Changes array from String[]
 		
@@ -46,23 +46,20 @@ public class Simulator {
 		//2) Move the simulation based on one tick first.
 		//3) A tick constitutes calling act on each actor
 		
-		Simulator k = new Simulator(3,3, 20, 1);
+		Simulator k = new Simulator(3,4, 20, 1);
 		
 		k.simulate();
 		
 
 	}
 	
-	public Simulator(int gridLength, int gridHeight, int capacity, int chargeSpeed) {
+	public Simulator(int rows, int columns, int capacity, int chargeSpeed) {
 		
-		grid = new Grid(gridLength, gridHeight);
+		grid = new Grid(rows, columns);
 		simulationTerminate = false;
-		actors = new HashMap<>();
 		simulationActorSetup(capacity, chargeSpeed);
 		
-		
-		
-		
+		System.out.println(grid);
 	}
 	
 	public void simulate() {
@@ -70,9 +67,9 @@ public class Simulator {
 		simulateOneTick();
 		simulateOneTick();
 		simulateOneTick();
-		simulateOneTick();
-		simulateOneTick();
-		simulateOneTick();
+//		simulateOneTick();
+//		simulateOneTick();
+//		simulateOneTick();
 		
 //		do {
 //			
@@ -87,34 +84,26 @@ public class Simulator {
 	 * stations have done what they had to for this tick.
 	 */
 	public void simulateOneTick() {
-		List<Actor> actorList;
-		actorList = actors.get("PackingStation");
 		
-		for (Actor actor : actorList) {
+		for (Actor actor : packingStations) {
 			actor.act();
 		}
 		
-		actorList = actors.get("Robot");
-		
-		for (Actor actor : actorList) {
+		for (Actor actor : robots) {
 			Robot r = (Robot) actor;
 			r.getChargingPod().act();
 		}
 		
-		actorList = actors.get("Shelf");
-		
-		for (Actor actor : actorList) {
+		for (Actor actor : shelfs) {
 			actor.act();
 		}
 		
-		actorList = actors.get("Robot");
-		
-		for (Actor actor : actorList) {
+		for (Actor actor : robots) {
 			actor.act();
 		}
 		
-		grid.addActorsToGrid(actorList);
-		System.out.println(grid.toString());
+//		grid.addActorsToGrid(actorList);
+		System.out.println(grid);
 
 	}
 	
@@ -123,32 +112,30 @@ public class Simulator {
 		Robot.CAPACITY = capacity;
 		ChargingPod.CHARGE_SPEED = chargeSpeed;
 		
-		List<Actor> robots = new ArrayList<Actor>();
+		robots = new ArrayList<Actor>();
+		shelfs = new ArrayList<Actor>();
+		packingStations = new ArrayList<Actor>();
+		
 		robots.add(new Robot(2, 0, "r0", "c0"));
-		actors.put("Robot", robots);
 		
-		List<Actor> shelf = new ArrayList<Actor>();
 		Shelf s = new Shelf(2, 2, "ss0");
-		shelf.add(s);
-		actors.put("Shelf", shelf);
+		shelfs.add(s);
 		
-		List<Actor> packingStation = new ArrayList<Actor>();
-		packingStation.add(new PackingStation(0, 2, actors.get("Robot"), "ps0"));
-		actors.put("PackingStation", packingStation);
+		
+		packingStations.add(new PackingStation(0, 2, robots, "ps0"));
 
+		//Create orders
 		Order a = new Order(2);
-		a.addShelf((Shelf) actors.get("Shelf").get(0));
+		a.addShelf((Shelf) shelfs.get(0));
+		
+		//Add the orders to global list utilized by PackingStation
 		PackingStation.enterOrder(a);
 		
+		//Add to grid
+		grid.addActorsToGrid(robots);
+		grid.addActorsToGrid(shelfs);
+		grid.addActorsToGrid(packingStations);
 
-		//Add to grid.
-		for (List<Actor> actors : actors.values()) {
-			
-			grid.addActorsToGrid(actors);
-			
-		}
-
-		System.out.println(grid.toString());
 	}
 
 

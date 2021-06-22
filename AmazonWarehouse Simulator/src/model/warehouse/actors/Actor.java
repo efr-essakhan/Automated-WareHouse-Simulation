@@ -60,12 +60,12 @@ public abstract class Actor {
 	 * @param col
 	 */
 	public void setLocation(int x, int y) {
-		location.setX(x);
-		location.setY(y);
+		location.setY(x);
+		location.setX(y);
 	}
 	
 	public void setLocation(Location loc) {
-		setLocation(loc.getX(), loc.getY());
+		setLocation(loc.getY(), loc.getX());
 	}
 
 	public Location getLocation() {
