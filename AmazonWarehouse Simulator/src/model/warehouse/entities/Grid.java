@@ -1,12 +1,12 @@
-package model.warehouse;
+package model.warehouse.entities;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
-import model.warehouse.entities.Actor;
-import model.warehouse.entities.Robot;
+import model.warehouse.actors.Actor;
+import model.warehouse.actors.Robot;
 
 public class Grid {
 

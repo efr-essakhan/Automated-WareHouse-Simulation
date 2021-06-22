@@ -1,11 +1,11 @@
-package model.warehouse;
+package model.warehouse.entities;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 
-import model.warehouse.entities.Shelf;
+import model.warehouse.actors.Shelf;
 
 public class Order {
 	

@@ -1,12 +1,12 @@
-package model.warehouse.entities;
+package model.warehouse.actors;
 
 import model.strategies.PathEstimationAlgorithm;
 import model.strategies.PathFindingAlgorithm;
 import model.strategies.SimplePathEst;
 import model.strategies.SimplePathFindingAlgorithm;
-import model.warehouse.Location;
-import model.warehouse.Proposal;
-import model.warehouse.State;
+import model.warehouse.entities.Location;
+import model.warehouse.entities.Proposal;
+import model.warehouse.entities.State;
 
 public class Robot extends Actor {
 	

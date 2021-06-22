@@ -1,9 +1,9 @@
 package model.strategies;
 
-import model.warehouse.Location;
-import model.warehouse.Proposal;
-import model.warehouse.State;
-import model.warehouse.entities.Actor;
+import model.warehouse.actors.Actor;
+import model.warehouse.entities.Location;
+import model.warehouse.entities.Proposal;
+import model.warehouse.entities.State;
 
 public class SimplePathFindingAlgorithm extends PathFindingAlgorithm{
 

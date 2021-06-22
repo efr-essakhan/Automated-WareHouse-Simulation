@@ -1,10 +1,10 @@
-package model.warehouse;
+package model.warehouse.entities;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
-import model.warehouse.entities.Actor;
+import model.warehouse.actors.Actor;
 
 /**
  * Represent a location x,y on the map.

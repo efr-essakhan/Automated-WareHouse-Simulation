@@ -1,4 +1,4 @@
-package model.warehouse.entities;
+package model.warehouse.actors;
 
 
 import java.util.ArrayList;
@@ -9,9 +9,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import model.warehouse.Order;
-import model.warehouse.Proposal;
-import model.warehouse.State;
+import model.warehouse.entities.Order;
+import model.warehouse.entities.Proposal;
+import model.warehouse.entities.State;
 
 import java.util.TreeMap;
 

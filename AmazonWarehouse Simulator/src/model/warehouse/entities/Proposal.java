@@ -1,8 +1,8 @@
-package model.warehouse;
+package model.warehouse.entities;
 
-import model.warehouse.entities.PackingStation;
-import model.warehouse.entities.Robot;
-import model.warehouse.entities.Shelf;
+import model.warehouse.actors.PackingStation;
+import model.warehouse.actors.Robot;
+import model.warehouse.actors.Shelf;
 
 /**
  * Value object, holding the details of the Shelf and packing station that is making the proposal - to be passed to the Robots.

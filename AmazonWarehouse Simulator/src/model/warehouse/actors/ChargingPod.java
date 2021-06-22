@@ -1,4 +1,4 @@
-package model.warehouse.entities;
+package model.warehouse.actors;
 
 /**
  * @author xbox_

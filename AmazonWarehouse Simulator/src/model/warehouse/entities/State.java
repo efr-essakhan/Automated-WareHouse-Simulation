@@ -1,4 +1,4 @@
-package model.warehouse;
+package model.warehouse.entities;
 
 public enum State {
 	

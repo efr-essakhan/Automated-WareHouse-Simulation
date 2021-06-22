@@ -1,6 +1,6 @@
-package model.warehouse.entities;
+package model.warehouse.actors;
 
-import model.warehouse.Location;
+import model.warehouse.entities.Location;
 
 /**
  * 
