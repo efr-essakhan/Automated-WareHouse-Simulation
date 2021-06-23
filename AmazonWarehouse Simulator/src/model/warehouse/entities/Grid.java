@@ -34,7 +34,23 @@ public class Grid {
 					
 					for (Actor actor : loc.getActors()) {
 						if (actor instanceof Robot) {
-							if (y == actor.getLocation().getY()) {
+							int actorX = actor.getLocation().getX();
+							int actorY = actor.getLocation().getY();
+							if (y != actorY || x != actorX) {
+								//Firstly remove this actor from the Loc in the grid as it doesn't belong there.
+								loc.getActors().remove(actor);
+								
+								if (grid[actorY][actorX] != null) {
+									
+									grid[actorY][actorX].addActor(actor);
+									actor.setLocation(grid[actorY][actorX]);
+									
+								}else {
+									Location actorLoc = new Location(actorY, actorX, actor);
+									grid[actorY][actorX] = actorLoc;
+									actor.setLocation(actorLoc);
+								}
+								
 								
 							}
 							
@@ -89,12 +105,17 @@ public class Grid {
 				Location loc = (Location) grid[i][j];
 				
 				if (loc != null) {
-					for (Actor actor : loc.getActors()) {
-						
-						if (actor != null) {
-							sb.append(actor.toString());
-						}
-					}	
+					if (loc.getActors().isEmpty() == false) {
+						for (Actor actor : loc.getActors()) {
+							
+							if (actor != null) {
+								sb.append(actor.toString());
+							}
+						}	
+					}else {
+						sb.append(".");
+					}
+					
 					sb.append("\t");
 				}
 				else {
