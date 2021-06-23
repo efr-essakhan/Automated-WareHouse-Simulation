@@ -12,6 +12,8 @@ public abstract class PathFindingAlgorithm extends Algorithm {
 	
  	public PathFindingAlgorithm(Proposal proposal) {
  		super(proposal);
+ 		
+ 		setNewTargetDisplacement();
 	}
  	
 	public void setNewTargetDisplacement() {

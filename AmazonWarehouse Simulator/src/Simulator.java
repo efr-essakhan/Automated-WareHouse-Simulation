@@ -46,7 +46,7 @@ public class Simulator {
 		//2) Move the simulation based on one tick first.
 		//3) A tick constitutes calling act on each actor
 		
-		Simulator k = new Simulator(4,4, 20, 1);
+		Simulator k = new Simulator(3,4, 20, 1);
 		
 		k.simulate();
 		
@@ -67,8 +67,7 @@ public class Simulator {
 		simulateOneTick();
 		simulateOneTick();
 		simulateOneTick();
-//		simulateOneTick();
-//		simulateOneTick();
+		simulateOneTick();
 //		simulateOneTick();
 		
 //		do {

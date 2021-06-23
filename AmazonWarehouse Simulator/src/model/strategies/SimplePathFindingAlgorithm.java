@@ -19,31 +19,28 @@ public class SimplePathFindingAlgorithm extends PathFindingAlgorithm{
 		
 		if (selfRobot.getState() == State.COLLECTING) { 
 			//First the Robot to shelf
-			 displacement = calculateDisplacement(shelfX, robotX, shelfY, robotY);
+			 displacement = calculateDisplacement(shelfY, robotY, shelfX, robotX);
 			
 		}else if (selfRobot.getState() == State.COLLECTED) {
 			
 			//Now the shelf to station
-			 displacement = calculateDisplacement(packingX, shelfX, packingY, shelfY);
+			 displacement = calculateDisplacement(packingY, shelfY, packingX, shelfX);
 		}else if (selfRobot.getState() == State.DISPATCHED) {
 			
 			//For guarantee that the robot won't be stranded after the job, station to charger
-			 displacement = calculateDisplacement(chargerX, packingX, chargerY, packingY);
+			 displacement = calculateDisplacement(chargerY, packingY, chargerX, packingX);
 		}
 
 		return displacement;
 	}
 	
-	private Location calculateDisplacement(int x1, int x2, int y1, int y2) {
-		Location displacement = new Location(x1-x2, y1-y2);
+	private Location calculateDisplacement(int y1, int y2, int x1, int x2) {
+		Location displacement = new Location(y1-y2, x1-x2);
 		
 		return displacement;
 		
 	}
 	
-	public void setNewTargetDisplacement() {
-		targetDisplacement = calcDisplacementBasedOnState();
-	}
 
 	/**
 	 * Provides a location that gives the next location for the robot the placed on to move towards the target.
@@ -51,7 +48,7 @@ public class SimplePathFindingAlgorithm extends PathFindingAlgorithm{
 	@Override
 	public Location getNewLocationForRobot() {
 		
-		setNewTargetDisplacement(); //hold an instance reference to do this as you will be subtracting from it.
+//		setNewTargetDisplacement(); //hold an instance reference to do this as you will be subtracting from it.
 		
 		//add to current robot loc the x first.
 		Location loc = null;
@@ -61,9 +58,9 @@ public class SimplePathFindingAlgorithm extends PathFindingAlgorithm{
 			e.printStackTrace();
 		} 
 	
-		if (targetDisplacement.getY() != 0) { //first move column wise
+		if (targetDisplacement.getY() != 0) { //first move row wise
 			
-			//find out if targetDisplacement.getX() is neg or pos number
+			//find out if targetDisplacement.getY() is neg or pos number
 			if (targetDisplacement.getY() > 0) {
 				loc.setY(loc.getY() + 1);
 				targetDisplacement.setY(targetDisplacement.getY() - 1);
@@ -72,15 +69,16 @@ public class SimplePathFindingAlgorithm extends PathFindingAlgorithm{
 				loc.setY(loc.getY() - 1);
 				targetDisplacement.setY(targetDisplacement.getY() + 1);
 			}
-		} else if (targetDisplacement.getX() != 0) { //Next move row wise
+			
+		} else if (targetDisplacement.getX() != 0) { //Next move column wise
 			
 			if (targetDisplacement.getX() > 0) {
-				loc.setY(loc.getY() + 1);
-				targetDisplacement.setY(targetDisplacement.getY() - 1);
+				loc.setX(loc.getX() + 1);
+				targetDisplacement.setX(targetDisplacement.getX() - 1);
 				
 			} else if (targetDisplacement.getX() < 0) {
-				loc.setY(loc.getY() - 1);
-				targetDisplacement.setY(targetDisplacement.getY() + 1);
+				loc.setX(loc.getX() - 1);
+				targetDisplacement.setX(targetDisplacement.getX() + 1);
 			}
 			
 		} 

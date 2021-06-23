@@ -25,14 +25,14 @@ public abstract class Algorithm {
 		this.targetPackingStation = proposal.getPackingStation();
 		this.selfRobot = proposal.getRobotForTheJob();
 		
- 		shelfX = targetShelf.getLocation().getY();
- 		shelfY = targetShelf.getLocation().getX();
- 		robotX = selfRobot.getLocation().getY();
- 		robotY = selfRobot.getLocation().getX();
- 		packingX = targetPackingStation.getLocation().getY();
- 		packingY = targetPackingStation.getLocation().getX();
- 		chargerX = selfRobot.getChargingPod().getLocation().getY();
- 		chargerY = selfRobot.getChargingPod().getLocation().getX();
+ 		shelfX = targetShelf.getLocation().getX();
+ 		shelfY = targetShelf.getLocation().getY();
+ 		robotX = selfRobot.getLocation().getX();
+ 		robotY = selfRobot.getLocation().getY();
+ 		packingX = targetPackingStation.getLocation().getX();
+ 		packingY = targetPackingStation.getLocation().getY();
+ 		chargerX = selfRobot.getChargingPod().getLocation().getX();
+ 		chargerY = selfRobot.getChargingPod().getLocation().getY();
 	}
 
 }
