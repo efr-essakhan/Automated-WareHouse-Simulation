@@ -16,7 +16,7 @@ public abstract class PathFindingAlgorithm extends Algorithm {
  		setNewTargetDisplacement();
 	}
  	
-	public void setNewTargetDisplacement() {
+	public void setNewTargetDisplacement() { 
 		targetDisplacement = calcDisplacementBasedOnState();
 	}
  	

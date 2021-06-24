@@ -31,14 +31,14 @@ public class Grid {
 				Location loc = grid[y][x];
 				
 				if (loc != null) {
-					
+					ArrayList<Actor> actorsToRemove = new ArrayList<Actor>();
 					for (Actor actor : loc.getActors()) {
 						if (actor instanceof Robot) {
 							int actorX = actor.getLocation().getX();
 							int actorY = actor.getLocation().getY();
 							if (y != actorY || x != actorX) {
-								//Firstly remove this actor from the Loc in the grid as it doesn't belong there.
-								loc.getActors().remove(actor);
+								//Store this actor to remove this actor later outside of this loop (to avoid error) from the Loc in the grid as it doesn't belong there.
+								actorsToRemove.add(actor); //TODO: change this into an iterable to remove
 								
 								if (grid[actorY][actorX] != null) {
 									
@@ -57,6 +57,10 @@ public class Grid {
 						}
 						
 					}
+					
+					
+					loc.getActors().removeAll(actorsToRemove);
+					
 					
 				}
 				

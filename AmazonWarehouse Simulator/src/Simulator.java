@@ -68,7 +68,11 @@ public class Simulator {
 		simulateOneTick();
 		simulateOneTick();
 		simulateOneTick();
-//		simulateOneTick();
+		simulateOneTick();
+		simulateOneTick();
+		simulateOneTick();
+		simulateOneTick();
+
 		
 //		do {
 //			
@@ -100,11 +104,6 @@ public class Simulator {
 		for (Actor actor : robots) {
 			actor.act();
 		}
-		
-		//Add to grid
-//		grid.addActorsToGrid(robots);
-//		grid.addActorsToGrid(shelfs);
-//		grid.addActorsToGrid(packingStations);
 		
 		grid.updateActorsOnGrid();
 

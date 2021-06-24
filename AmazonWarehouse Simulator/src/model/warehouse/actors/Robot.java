@@ -71,7 +71,8 @@ public class Robot extends Actor {
 	public void obeyProposal(Proposal proposal) {
 		this.proposal = proposal;
 		pathFindingAlgo = new SimplePathFindingAlgorithm(this.proposal);
-		this.switchState();
+		this.switchState(); //Should go from UNCOLLECTED -> COLLECTING
+		pathFindingAlgo.setNewTargetDisplacement();
 	}
 	
 
@@ -80,16 +81,36 @@ public class Robot extends Actor {
 		
 		if (proposal != null && pathFindingAlgo != null) {
 			
-			Location newLoc = pathFindingAlgo.getNewLocationForRobot();
 			
-			//If New Location is not just the old location (indicated by being null) then:
-			if (newLoc != null) {
-				//We know it is is a new location to move to, so set it as the robots location. else:
-				this.setLocation(newLoc);
-			}else { //If new Location == Old location, indicated by null, that means that there is nomore to move and you are at your desired location
+			boolean pathFound = false;
+			
+			while (pathFound == false) {
+				Location newLoc = pathFindingAlgo.getNewLocationForRobot();
 				
-				this.switchState();
+				//If New Location is not just the old location (indicated by being null) then:
+				if (newLoc != null) {
+					//We know it is is a new location to move to, so set it as the robots location. else:
+					this.setLocation(newLoc);
+					pathFound = true;
+				}else { //If new Location == Old location, indicated by null, that means that there is nomore to move and you are at your desired location
+					
+					this.switchState();
+					if (this.state != State.UNCOLLECTED) { //If State=uncollected that means that the proposal is done now.
+						pathFindingAlgo.setNewTargetDisplacement();
+					}else if (this.state == State.UNCOLLECTED) {
+						proposal = null;
+						pathFindingAlgo = null;
+					}
+					
+				}
+				
 			}
+			
+			
+			
+			
+			
+	
 		}
 		
 	}
@@ -128,19 +149,15 @@ public class Robot extends Actor {
 		switch (state) {
 		case UNCOLLECTED:
 			state = State.COLLECTING;
-			pathFindingAlgo.setNewTargetDisplacement();
 			break;
 		case COLLECTING:
 			state = State.COLLECTED;
-			pathFindingAlgo.setNewTargetDisplacement();
 			break;
 		case COLLECTED:
 			state = State.DISPATCHED;
-			pathFindingAlgo.setNewTargetDisplacement();
 			break;
 		case DISPATCHED:
 			state = State.UNCOLLECTED;
-			pathFindingAlgo.setNewTargetDisplacement();
 			break;
 		default:
 			break;

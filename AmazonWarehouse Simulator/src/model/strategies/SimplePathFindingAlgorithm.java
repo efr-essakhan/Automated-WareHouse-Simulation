@@ -84,7 +84,7 @@ public class SimplePathFindingAlgorithm extends PathFindingAlgorithm{
 		} 
 		
 		//If New Location is just the old location then:
-		if (loc == selfRobot.getLocation()) {
+		if (loc.getX() == selfRobot.getLocation().getX() && loc.getY() == selfRobot.getLocation().getY()) {
 			return null; //If new Location == Old location, that means that there is no more displacement, hence return a null, indicating no more displacement.
 		}else {
 			return loc;
