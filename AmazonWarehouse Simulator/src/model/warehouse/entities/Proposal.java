@@ -45,6 +45,10 @@ public class Proposal {
 	public PackingStation getPackingStation() {
 		return packingStation;
 	}
+
+	public Order getOrder() {
+		return order;
+	}
 	
 	/**
 	 * 

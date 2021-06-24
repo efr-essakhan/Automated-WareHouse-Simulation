@@ -11,13 +11,13 @@ import model.warehouse.entities.State;
 public class Robot extends Actor {
 	
 	private final static boolean OBSTRUCTIVE = true; //Can another robot move through it?
-	
 	public static int CAPACITY = 0; //capacity of the battery of all the robots
+	
 	private ChargingPod chargingPod; 
-	private int Charge = 20; //TODO: Change back to zero;
-	private boolean carrying;
+	private int charge = 20; //TODO: Change back to zero;
 	private Proposal proposal; //current assignment
-	private State state;
+	private boolean charging; //Whether charging (or going to a charging pot to be charged) or not.
+	private State state; //State related to doing an assignment
 	private PathFindingAlgorithm pathFindingAlgo;
 	
 	public Robot(int x, int y) {
@@ -31,7 +31,6 @@ public class Robot extends Actor {
 		super(x, y, uid);
 		
 		chargingPod = new ChargingPod(this, ChargingPodUid); //Assign a chargingpod automatically
-		setCarrying(false); // not carrying anything at the start.
 		proposal = null;
 		pathFindingAlgo = null;
 		state = State.UNCOLLECTED;
@@ -41,12 +40,26 @@ public class Robot extends Actor {
 		return chargingPod;
 	}
 	
-	public int getCharge() {
-		return Charge;
+	/**
+	 * Use charge when moving.
+	 */
+	public void useCharge() {
+		if (state == State.COLLECTED) { //means it is carrying
+			charge=-2;
+		}else {
+			charge=-1;
+		}
 	}
 	
+	public int getCharge() {
+		return charge;
+	}
+	
+	/**
+	 * Increase charge every tick when charging.
+	 */
 	public void increaseCharge() {
-		Charge = getCharge()+1;
+		charge=+1;
 	}
 
 	/**
@@ -58,15 +71,33 @@ public class Robot extends Actor {
 	public Integer analyseProposal(Proposal proposal) {
 		
 		PathEstimationAlgorithm estimationAlgo = new SimplePathEst(proposal);
+		Double distance = estimationAlgo.calculateRSPDistance();
 		
-		Double distance = estimationAlgo.calculateDistance();
-		if (distance != null) {
+		if (distance != null) { //I.e. robot does have enough charge for the journey
 			return (Integer) distance.intValue();
-		}else {
-			return null;
+			
+		}else {//Robot does not have enough charge for the journey
+			
+			//Attempt at making robot charge.
+			state = State.Charging;
+			distance = estimationAlgo.calculateRCDistance();
+			
+			if (distance != null) {
+				return (Integer) distance.intValue();
+			}
+			else { //TODO: Simulation should fail
+				return null; 
+			}
+			
+		
 		}
 		
 	}
+	
+	public void attemptCharge() {
+		
+	}
+	
 	
 	public void obeyProposal(Proposal proposal) {
 		this.proposal = proposal;
@@ -90,26 +121,27 @@ public class Robot extends Actor {
 				//If New Location is not just the old location (indicated by being null) then:
 				if (newLoc != null) {
 					//We know it is is a new location to move to, so set it as the robots location. else:
-					this.setLocation(newLoc);
+					this.setLocation(newLoc);				
 					pathFound = true;
+					useCharge(); 
 				}else { //If new Location == Old location, indicated by null, that means that there is nomore to move and you are at your desired location
-					
+										
 					this.switchState();
-					if (this.state != State.UNCOLLECTED) { //If State=uncollected that means that the proposal is done now.
+					if (this.state == State.COLLECTED) {  //from collecting > collected
+						
+						proposal.getOrder().updateShelfState(proposal.getShelf(), State.COLLECTED);
 						pathFindingAlgo.setNewTargetDisplacement();
-					}else if (this.state == State.UNCOLLECTED) {
+						
+					}else if (this.state == State.UNCOLLECTED){ //will comeback to being uncollected - meaning done with this proposal.
+						
 						proposal = null;
 						pathFindingAlgo = null;
+						
 					}
 					
 				}
 				
-			}
-			
-			
-			
-			
-			
+			}		
 	
 		}
 		
@@ -125,14 +157,6 @@ public class Robot extends Actor {
 	public boolean getOBSTRUCTIVE() {
 		
 		return this.OBSTRUCTIVE;
-	}
-
-	public boolean isCarrying() {
-		return carrying;
-	}
-
-	public void setCarrying(boolean carrying) {
-		this.carrying = carrying;
 	}
 
 
@@ -154,9 +178,6 @@ public class Robot extends Actor {
 			state = State.COLLECTED;
 			break;
 		case COLLECTED:
-			state = State.DISPATCHED;
-			break;
-		case DISPATCHED:
 			state = State.UNCOLLECTED;
 			break;
 		default:

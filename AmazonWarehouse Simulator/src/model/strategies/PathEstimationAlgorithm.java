@@ -12,7 +12,19 @@ public abstract class PathEstimationAlgorithm extends Algorithm{
  		super(proposal);
 	}
 	
-	public abstract Double calculateDistance();
+	/**
+	 * Calculates total number of steps to take to go from current Robot>Shelf>Packing Station
+	 * @return Total number of movements needed to complete journey
+	 */
+	public abstract Double calculateRSPDistance();
+	
+	
+	
+	/**
+	 * Distance from robot>charging pod
+	 * @return Total number of movements needed to complete journey
+	 */
+	public abstract Double calculateRCDistance();
 	
 	
 

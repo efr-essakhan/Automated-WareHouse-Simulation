@@ -9,7 +9,7 @@ public class Pythagoras extends PathEstimationAlgorithm {
  		super(proposal);
 	}
  	
- 	public Double calculateDistance() {
+ 	public Double calculateRSPDistance() {
  		
  		//robot to shelf
  		double distanceRS = Math.sqrt(sqNum((shelfX-robotX))+sqNum((shelfY-robotY)));
@@ -24,5 +24,11 @@ public class Pythagoras extends PathEstimationAlgorithm {
  		return num*num;
  		
  	}
+
+	@Override
+	public Double calculateRCDistance() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }

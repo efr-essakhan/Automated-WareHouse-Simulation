@@ -75,8 +75,8 @@ public class PackingStation extends Actor {
 										proposal.setLowestSteps(stepsToTake);
 									}
 								}else {
-									//TODO:Charge the robot
-									
+									//The stepsToTake will only be null if the journey cant be made due to insufficient charge, thus make the robot go charge!
+									robot1.attemptCharge();
 								}
 							}
 

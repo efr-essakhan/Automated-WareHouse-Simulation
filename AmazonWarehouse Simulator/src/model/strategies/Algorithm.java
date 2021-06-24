@@ -18,6 +18,7 @@ public abstract class Algorithm {
  	protected int packingY;
  	protected int chargerX;
  	protected int chargerY;
+ 	protected Proposal proposal;
 
 	
 	public Algorithm(Proposal proposal) {
@@ -33,6 +34,10 @@ public abstract class Algorithm {
  		packingY = targetPackingStation.getLocation().getY();
  		chargerX = selfRobot.getChargingPod().getLocation().getX();
  		chargerY = selfRobot.getChargingPod().getLocation().getY();
+	}
+	
+	public void setProposal(Proposal proposal) {
+			
 	}
 
 }
