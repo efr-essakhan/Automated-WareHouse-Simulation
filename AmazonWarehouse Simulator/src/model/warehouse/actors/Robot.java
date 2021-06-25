@@ -2,7 +2,7 @@ package model.warehouse.actors;
 
 import model.strategies.PathEstimationAlgorithm;
 import model.strategies.PathFindingAlgorithm;
-import model.strategies.SimplePathEst;
+import model.strategies.ManhattanEst;
 import model.strategies.SimplePathFindingAlgorithm;
 import model.warehouse.entities.Location;
 import model.warehouse.entities.Proposal;
@@ -15,10 +15,11 @@ public class Robot extends Actor {
 	
 	private ChargingPod chargingPod; 
 	private int charge = 20; //TODO: Change back to zero;
-	private Proposal proposal; //current assignment
+	private Proposal proposalHandling; //current assignment
 	private boolean charging; //Whether charging (or going to a charging pot to be charged) or not.
 	private State state; //State related to doing an assignment
 	private PathFindingAlgorithm pathFindingAlgo;
+	PathEstimationAlgorithm estimationAlgo;
 	
 	public Robot(int x, int y) {
 		
@@ -31,9 +32,10 @@ public class Robot extends Actor {
 		super(x, y, uid);
 		
 		chargingPod = new ChargingPod(this, ChargingPodUid); //Assign a chargingpod automatically
-		proposal = null;
-		pathFindingAlgo = null;
+		proposalHandling = null;
+		pathFindingAlgo = new SimplePathFindingAlgorithm();
 		state = State.UNCOLLECTED;
+		estimationAlgo = new ManhattanEst();
 	}
 	
 	public ChargingPod getChargingPod() {
@@ -70,50 +72,62 @@ public class Robot extends Actor {
 	 */
 	public Integer analyseProposal(Proposal proposal) {
 		
-		PathEstimationAlgorithm estimationAlgo = new SimplePathEst(proposal);
-		Double distance = estimationAlgo.calculateRSPDistance();
+		Double stepsToCompleteJourney = estimationAlgo.calculateRSPDistance(proposal);
 		
-		if (distance != null) { //I.e. robot does have enough charge for the journey
-			return (Integer) distance.intValue();
+		if (stepsToCompleteJourney != null) { //I.e. robot does have enough charge for the journey
+			return (Integer) stepsToCompleteJourney.intValue();
 			
 		}else {//Robot does not have enough charge for the journey
 			
-			//Attempt at making robot charge.
-			state = State.Charging;
-			distance = estimationAlgo.calculateRCDistance();
-			
-			if (distance != null) {
-				return (Integer) distance.intValue();
-			}
-			else { //TODO: Simulation should fail
-				return null; 
-			}
-			
-		
+			return null;
 		}
 		
 	}
 	
-	public void attemptCharge() {
-		
+	public void obeyProposal(Proposal proposal) {
+		this.proposalHandling = proposal;
+		pathFindingAlgo.setFieldsForProposal(proposal);
+		this.switchState(); //Should go from UNCOLLECTED -> COLLECTING
+		pathFindingAlgo.setNewTargetDisplacementBasedOnState();
 	}
 	
 	
-	public void obeyProposal(Proposal proposal) {
-		this.proposal = proposal;
-		pathFindingAlgo = new SimplePathFindingAlgorithm(this.proposal);
-		this.switchState(); //Should go from UNCOLLECTED -> COLLECTING
-		pathFindingAlgo.setNewTargetDisplacement();
+	public void attemptCharge() {
+		
+		//Attempt at making robot charge.
+		state = State.CHARGING;
+		Double distanceToCharger = estimationAlgo.calculateRCDistance(this);
+		
+		if (distanceToCharger != null) { //null represents: not possible.
+			//TODO: Make robot charge
+			
+			this.proposalHandling = new Proposal(this);
+			 
+			pathFindingAlgo.setFieldsForCharging(this);
+			pathFindingAlgo.setNewTargetDisplacementBasedOnState(); //Since state is Charging the target will be the charging Pot.
+			handleProposal();
+		}
+		else { 
+			
+			endSimulation("Robot on loc Y: " + this.location.getY()+ " X: " + this.location.getX() + " HAS NOT ENOUGH CHARGE TO REACH PACKINGSTATION.");
+			
+		}
+		
 	}
 	
 
 	@Override
 	public void act() {
 		
-		if (proposal != null && pathFindingAlgo != null) {
+		handleProposal();
+		
+	}
+
+
+	private void handleProposal() {
+		if (proposalHandling != null && pathFindingAlgo != null) { //If there is a proposal, handle it.
 			
-			
-			boolean pathFound = false;
+			boolean pathFound = false; //if a next loctation for the robot to move to has been found or nah
 			
 			while (pathFound == false) {
 				Location newLoc = pathFindingAlgo.getNewLocationForRobot();
@@ -121,20 +135,20 @@ public class Robot extends Actor {
 				//If New Location is not just the old location (indicated by being null) then:
 				if (newLoc != null) {
 					//We know it is is a new location to move to, so set it as the robots location. else:
-					this.setLocation(newLoc);				
-					pathFound = true;
+					this.setLocation(newLoc);	
 					useCharge(); 
+					pathFound = true;	
 				}else { //If new Location == Old location, indicated by null, that means that there is nomore to move and you are at your desired location
 										
 					this.switchState();
 					if (this.state == State.COLLECTED) {  //from collecting > collected
 						
-						proposal.getOrder().updateShelfState(proposal.getShelf(), State.COLLECTED);
-						pathFindingAlgo.setNewTargetDisplacement();
+						proposalHandling.getOrder().updateShelfState(proposalHandling.getShelf(), State.COLLECTED);
+						pathFindingAlgo.setNewTargetDisplacementBasedOnState();
 						
 					}else if (this.state == State.UNCOLLECTED){ //will comeback to being uncollected - meaning done with this proposal.
 						
-						proposal = null;
+						proposalHandling = null;
 						pathFindingAlgo = null;
 						
 					}
@@ -144,9 +158,7 @@ public class Robot extends Actor {
 			}		
 	
 		}
-		
 	}
-	
 
 	@Override
 	public String toString() {

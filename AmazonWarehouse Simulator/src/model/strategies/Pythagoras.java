@@ -1,15 +1,16 @@
 package model.strategies;
 
+import model.warehouse.actors.Robot;
 import model.warehouse.entities.Proposal;
 
 public class Pythagoras extends PathEstimationAlgorithm {
 	
  	
- 	public Pythagoras(Proposal proposal) {
- 		super(proposal);
+ 	public Pythagoras() {
+ 		super();
 	}
  	
- 	public Double calculateRSPDistance() {
+ 	public Double calculateRSPDistance(Proposal proposal) {
  		
  		//robot to shelf
  		double distanceRS = Math.sqrt(sqNum((shelfX-robotX))+sqNum((shelfY-robotY)));
@@ -26,7 +27,7 @@ public class Pythagoras extends PathEstimationAlgorithm {
  	}
 
 	@Override
-	public Double calculateRCDistance() {
+	public Double calculateRCDistance(Robot robot) {
 		// TODO Auto-generated method stub
 		return null;
 	}

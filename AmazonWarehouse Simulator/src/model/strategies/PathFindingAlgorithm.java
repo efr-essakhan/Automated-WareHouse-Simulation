@@ -10,13 +10,14 @@ public abstract class PathFindingAlgorithm extends Algorithm {
 	protected Location newDisplacementForRobot; //Holds the coordinates to move on tick to move towards target displacement.
 	
 	
- 	public PathFindingAlgorithm(Proposal proposal) {
- 		super(proposal);
- 		
- 		setNewTargetDisplacement();
+ 	public PathFindingAlgorithm() {
+ 		super();
 	}
  	
-	public void setNewTargetDisplacement() { 
+	/**
+	 * Sets the remaining Y and X values to traverse for the robot to reach its destination.
+	 */
+	public void setNewTargetDisplacementBasedOnState() { 
 		targetDisplacement = calcDisplacementBasedOnState();
 	}
  	

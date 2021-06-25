@@ -12,5 +12,5 @@ public enum State {
 	COLLECTING, //Being worked on
 	COLLECTED, //Done, ready to be processed (packed)
 	DISPATCHED, //Order packed. -Not applicable to shelf or Robot.
-	Charging //Robot is being charged (or going towards a charging station).
+	CHARGING //Robot is being charged (or going towards a charging station).
 }

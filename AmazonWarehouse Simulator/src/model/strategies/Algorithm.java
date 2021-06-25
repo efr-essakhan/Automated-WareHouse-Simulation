@@ -18,13 +18,18 @@ public abstract class Algorithm {
  	protected int packingY;
  	protected int chargerX;
  	protected int chargerY;
- 	protected Proposal proposal;
+ 	protected int robotCharge;
 
 	
-	public Algorithm(Proposal proposal) {
+	public Algorithm() {
+		
+	}
+	
+	public void setFieldsForProposal(Proposal proposal) {
 		this.targetShelf = proposal.getShelf();
 		this.targetPackingStation = proposal.getPackingStation();
 		this.selfRobot = proposal.getRobotForTheJob();
+		this.robotCharge = proposal.getRobotForTheJob().getCharge();
 		
  		shelfX = targetShelf.getLocation().getX();
  		shelfY = targetShelf.getLocation().getY();
@@ -34,10 +39,15 @@ public abstract class Algorithm {
  		packingY = targetPackingStation.getLocation().getY();
  		chargerX = selfRobot.getChargingPod().getLocation().getX();
  		chargerY = selfRobot.getChargingPod().getLocation().getY();
+ 		
 	}
 	
-	public void setProposal(Proposal proposal) {
-			
+	public void setFieldsForCharging(Robot robot) {
+		this.selfRobot = robot;
+		
+ 		robotX = selfRobot.getLocation().getX();
+ 		robotY = selfRobot.getLocation().getY();
+ 		chargerX = selfRobot.getChargingPod().getLocation().getX();
+ 		chargerY = selfRobot.getChargingPod().getLocation().getY();
 	}
-
 }

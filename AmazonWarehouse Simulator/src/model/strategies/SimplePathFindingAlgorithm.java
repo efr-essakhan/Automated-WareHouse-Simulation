@@ -8,8 +8,8 @@ import model.warehouse.entities.State;
 public class SimplePathFindingAlgorithm extends PathFindingAlgorithm{
 
 	
-	public SimplePathFindingAlgorithm(Proposal proposal) {
-		super(proposal);
+	public SimplePathFindingAlgorithm() {
+		super();
 	}
 	
 	@Override
@@ -29,6 +29,9 @@ public class SimplePathFindingAlgorithm extends PathFindingAlgorithm{
 			
 			//For guarantee that the robot won't be stranded after the job, station to charger
 			 displacement = calculateDisplacement(chargerY, packingY, chargerX, packingX);
+			 
+		}else if (selfRobot.getState() == State.CHARGING) {
+			displacement = calculateDisplacement(chargerY, robotY, chargerX, robotX);
 		}
 
 		return displacement;

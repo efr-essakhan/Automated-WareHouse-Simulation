@@ -10,7 +10,7 @@ import javax.xml.crypto.KeySelector.Purpose;
 import model.warehouse.actors.Actor;
 import model.warehouse.actors.Robot;
 
-public class Grid {
+public class Grid extends Entitiy{
 
 	private Location[][] grid;
 
@@ -69,7 +69,6 @@ public class Grid {
 		
 	}
 
-	//TODO: Update location appropiately
 	public void addActorsToGrid(List<Actor> actors) {
 		
 		for (Actor actor : actors) {

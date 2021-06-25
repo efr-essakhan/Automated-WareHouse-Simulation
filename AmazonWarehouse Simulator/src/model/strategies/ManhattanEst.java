@@ -1,20 +1,20 @@
 package model.strategies;
 
+import model.warehouse.actors.Robot;
 import model.warehouse.entities.Proposal;
 
 //Manhattan
-public class SimplePathEst extends PathEstimationAlgorithm {
+public class ManhattanEst extends PathEstimationAlgorithm {
 	
-	private int robotCharge;
 
-	public SimplePathEst(Proposal proposal) {
-		super(proposal);
-		
-		robotCharge = selfRobot.getCharge(); 
+	public ManhattanEst() {
+		super();
 	}
 
 	@Override
-	public Double calculateRSPDistance() {
+	public Double calculateRSPDistance(Proposal proposal) {
+		
+		this.setFieldsForProposal(proposal);
 		
 		//First the Robot to shelf
 		int distanceRS = manhattanDistance(shelfX, robotX, shelfY, robotY);
@@ -43,14 +43,19 @@ public class SimplePathEst extends PathEstimationAlgorithm {
 	}
 
 	@Override
-	public Double calculateRCDistance() {
-
-		//First the Robot to shelf
+	public Double calculateRCDistance(Robot robot) {
+		
+		chargerX = robot.getChargingPod().getLocation().getX();
+		chargerY = robot.getChargingPod().getLocation().getY();
+		robotX = robot.getLocation().getX();
+		robotY = robot.getLocation().getY();
+		
+		//First the Robot to chargingPod
 		int distanceRC = manhattanDistance(chargerX, robotX, chargerY, robotY);
 		
 		robotCharge = robotCharge-distanceRC; 
 		if (robotCharge <= 0) {
-			return null; //null represents distance not possible at client side - and the TODO: the simulation should fail because of this.
+			return null; //null represents distance not possible at client side 
 		}
 		else
 		{

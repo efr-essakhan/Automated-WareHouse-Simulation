@@ -17,6 +17,22 @@ public class Proposal {
 	private Order order;
 	private PackingStation packingStation;
 	
+	/**
+	 * This constructor used for formulating Robot charging related proposals.
+	 * @param robot
+	 */
+	public Proposal(Robot robot) {
+		this(null, null, null, robot);
+	}
+	
+	/**
+	 * 
+	 * This constructor used for formulating Robot warehouse job related proposals.
+	 * @param order
+	 * @param shelf
+	 * @param packingStation
+	 * @param robot
+	 */
 	public Proposal(Order order, Shelf shelf, PackingStation packingStation, Robot robot) {
 		this.shelf = shelf;
 		this.packingStation = packingStation;
