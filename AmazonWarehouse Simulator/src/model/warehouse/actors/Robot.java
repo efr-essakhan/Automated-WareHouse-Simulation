@@ -192,6 +192,9 @@ public class Robot extends Actor {
 		case COLLECTED:
 			state = State.UNCOLLECTED;
 			break;
+		case CHARGING:
+			state = State.UNCOLLECTED;
+			break;	
 		default:
 			break;
 		}
