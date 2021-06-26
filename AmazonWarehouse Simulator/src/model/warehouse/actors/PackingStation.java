@@ -49,9 +49,10 @@ public class PackingStation extends Actor {
 
 			//Deal with orders
 			if (!orders.isEmpty()) {
+				
 
 				for (Order order : orders) { //Take order one by one
-
+					//TODO: Update order state somehow
 					//Take a shelf from the order's HashMap
 					for (Entry<Shelf, State> shelfs :  order.getShelfs().entrySet()) {
 						Shelf shelf = shelfs.getKey();
@@ -96,11 +97,40 @@ public class PackingStation extends Actor {
 					}
 
 				}
+				
+				checkIfOrdersDone();
 
 			}
 
 		}
 
+	}
+
+	/**
+	 * Check if each order is done to terminate
+	 */
+	private void checkIfOrdersDone() {
+		//TODO: Create another helper function for the first set of ifs.
+		//Check if each order is done to terminate
+		int count = 0;
+		int count2 = 0;
+		for (Order order : orders) {
+			//First update order state based on shelf states.
+			for (State state : order.getShelfs().values()) {
+				if (state == State.COLLECTED) {
+					count++;
+				}
+			}
+			if (count == orders.size()) {
+				order.setState(State.DISPATCHED);
+			}
+			if (order.getState() == State.DISPATCHED) {
+				count2++;
+			}
+		}
+		if (count2 == orders.size()) {
+			endSimulation("All orders done!"); //TODO: This is called b4 the last print, thus have act() return an Hashmap or tuple of <String,Bool> String = Suspension message, Bool = Wether to suspend after the final print or nah!
+		}
 	}
 
 

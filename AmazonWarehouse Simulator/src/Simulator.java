@@ -70,8 +70,8 @@ public class Simulator {
 		simulateOneTick();
 		simulateOneTick();
 		simulateOneTick();
-		simulateOneTick();
-		simulateOneTick();
+		simulateOneTick(); //TODO: GET NULL POINTER CUZZ OF THIS
+//		simulateOneTick();
 
 		
 //		do {
@@ -94,7 +94,7 @@ public class Simulator {
 		
 		for (Actor actor : robots) {
 			Robot r = (Robot) actor;
-			r.getChargingPod().act();
+			r.getChargingPod().act(); //TODO: Make the robot actually charge
 		}
 		
 		for (Actor actor : shelfs) {

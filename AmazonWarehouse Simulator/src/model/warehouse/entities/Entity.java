@@ -1,8 +1,8 @@
 package model.warehouse.entities;
 
-public abstract class Entitiy {
+public abstract class Entity {
 	
-	protected void endSimulation(String messageToPrint) {
+	protected static void endSimulation(String messageToPrint) {
 		System.out.println();
 		System.out.println(messageToPrint);
 		System.exit(0);

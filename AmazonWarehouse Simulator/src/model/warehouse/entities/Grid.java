@@ -10,7 +10,7 @@ import javax.xml.crypto.KeySelector.Purpose;
 import model.warehouse.actors.Actor;
 import model.warehouse.actors.Robot;
 
-public class Grid extends Entitiy{
+public class Grid extends Entity{
 
 	private Location[][] grid;
 

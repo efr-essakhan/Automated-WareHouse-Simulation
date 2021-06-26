@@ -1,6 +1,6 @@
 package model.warehouse.actors;
 
-import model.warehouse.entities.Entitiy;
+import model.warehouse.entities.Entity;
 import model.warehouse.entities.Location;
 
 /**
@@ -13,7 +13,7 @@ import model.warehouse.entities.Location;
  * @author xbox_
  *
  */
-public abstract class Actor extends Entitiy{
+public abstract class Actor extends Entity{
 	
 	protected Location location;
 	private static String UID = "0";

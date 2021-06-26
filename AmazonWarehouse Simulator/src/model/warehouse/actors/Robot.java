@@ -125,7 +125,7 @@ public class Robot extends Actor {
 
 
 	private void handleProposal() {
-		if (proposalHandling != null && pathFindingAlgo != null) { //If there is a proposal, handle it.
+		if (proposalHandling != null) { //If there is a proposal, handle it.
 			
 			boolean pathFound = false; //if a next loctation for the robot to move to has been found or nah
 			
@@ -149,7 +149,7 @@ public class Robot extends Actor {
 					}else if (this.state == State.UNCOLLECTED){ //will comeback to being uncollected - meaning done with this proposal.
 						
 						proposalHandling = null;
-						pathFindingAlgo = null;
+//						pathFindingAlgo = null;
 						
 					}
 					

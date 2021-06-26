@@ -1,19 +1,26 @@
-import model.warehouse.entities.Entitiy;
+import model.warehouse.entities.Entity;
 
 
-//
-//public class practise  {
-//	public static void main(String args[])
-//	{
-//		new 
-//	}
-//}
 
-class CodeToRun implements Runnable {
-	@Override
-	public void run() {
-		// TODO Auto-generated method stub
-		
+public class practise extends Entity {
+	public static void main(String args[])
+	{
+		int x = 0;
+		while (true) {
+			x++;
+			
+			if (x == 100000) {
+				
+				endSimulation("END " + x);
+			}
+
+			if (x == 1000000000) {
+				endSimulation("END " + x);
+			}
+			
+		}
 	}
 }
+
+
 
