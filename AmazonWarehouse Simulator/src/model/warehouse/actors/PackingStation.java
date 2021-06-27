@@ -12,7 +12,6 @@ import java.util.Map.Entry;
 import model.warehouse.entities.Order;
 import model.warehouse.entities.Proposal;
 import model.warehouse.entities.State;
-import model.warehouse.entities.Tuple;
 
 import java.util.TreeMap;
 
@@ -39,52 +38,46 @@ public class PackingStation extends Actor {
 	@Override
 	public String act() {
 		
+		String whatToReturn = null;
+		
+		
+		
 		if (packingThisOrder != null) {
 			
 			switch (packingThisOrder.getState()) {
+			case COLLECTING:
+				whatToReturn =  allocateShelfsOfOrderToRobots(packingThisOrder);
 			case COLLECTED: //TODO:Even when all orders done, the order is not marked as collected
 				packingThisOrder.pack();
+				break;
+			case DISPATCHED: 
 				packingThisOrder = null;
 				break;
-			case COLLECTING:
-				return allocateShelfsOfOrderToRobots(packingThisOrder);
 			default:
 				break;
 			}
 		}else {
 			
-			for (Order order : orders) { //Take order one by one
+			for (Order order : orders) { //Take the next order.
 				
 				if (order.getState() == State.UNCOLLECTED) {
-					return allocateShelfsOfOrderToRobots(order);
+					packingThisOrder = order;
+					String temp = allocateShelfsOfOrderToRobots(order);
+					if (whatToReturn == null && temp != null) { //To avoid unnessecary termination.
+						whatToReturn = temp;
+					}
+					
 				}
 			}
 			
 		}
-
-
-//		//Prioritise packing, if any order needs it
-//		if (packingThisOrder != null && packingThisOrder.getState() == State.COLLECTED) {
-//
-//			packingThisOrder.pack();
-//
-//		}else if (packingThisOrder.getState() == State.COLLECTING) {
-//			
-//			allocateShelfsOfOrderToRobots(packingThisOrder);
-//			
-//		}
-//		
-//		
-//		else {
-//
-//			
-//
-//
-//
-//
-//		}
 		
-		return checkIfOrdersDone();
+		String temp = checkIfOrdersDone();
+		if (whatToReturn == null && temp != null) { //To avoid unnessecary termination.
+			whatToReturn = temp;
+		}
+		
+		return whatToReturn;
 
 	}
 
@@ -165,7 +158,7 @@ public class PackingStation extends Actor {
 			}
 		}
 		if (count2 == orders.size()) {
-			return "All orders done!"; //TODO: This is called b4 the last print, thus have act() return an Hashmap or tuple of <String,Bool> String = Suspension message, Bool = Wether to suspend after the final print or nah!
+			return "All orders done!"; 
 		}
 		return null;
 	}

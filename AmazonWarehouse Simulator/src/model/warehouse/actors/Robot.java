@@ -153,7 +153,7 @@ public class Robot extends Actor {
 					}else if (this.state == State.UNCOLLECTED){ //will comeback to being uncollected - meaning done with this proposal.
 						
 						proposalHandling = null;
-//						pathFindingAlgo = null;
+						break;
 						
 					}
 					
