@@ -13,7 +13,8 @@ public class Shelf extends Actor {
 	}
 
 	@Override
-	public void act() {
+	public String act() {
+		return null;
 		// TODO Auto-generated method stub
 		
 	}

@@ -92,7 +92,7 @@ public class Robot extends Actor {
 	}
 	
 	
-	public void attemptCharge() {
+	public String attemptCharge() {
 		
 		//Attempt at making robot charge.
 		state = State.CHARGING;
@@ -106,10 +106,12 @@ public class Robot extends Actor {
 			pathFindingAlgo.setFieldsForCharging(this);
 			pathFindingAlgo.setNewTargetDisplacementBasedOnState(); //Since state is Charging the target will be the charging Pot.
 			handleProposal();
+			return null;
 		}
+
 		else { 
 			
-			endSimulation("Robot on loc Y: " + this.location.getY()+ " X: " + this.location.getX() + " HAS NOT ENOUGH CHARGE TO REACH PACKINGSTATION.");
+			return "Robot on loc Y: " + this.location.getY()+ " X: " + this.location.getX() + " HAS NOT ENOUGH CHARGE TO REACH PACKINGSTATION.";
 			
 		}
 		
@@ -117,9 +119,11 @@ public class Robot extends Actor {
 	
 
 	@Override
-	public void act() {
+	public String act() {
 		
 		handleProposal();
+		return null;
+		
 		
 	}
 

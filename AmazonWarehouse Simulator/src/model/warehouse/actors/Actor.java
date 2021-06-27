@@ -52,8 +52,9 @@ public abstract class Actor extends Entity{
 
 	/**
 	 * This is what actors do each tick
+	 * @return String holding simulation end message, if =null then simulation should not finish.
 	 */
-	public abstract void act();
+	public abstract String act();
 	
 	/**
 	 * 

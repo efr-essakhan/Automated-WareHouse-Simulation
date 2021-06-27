@@ -88,29 +88,39 @@ public class Simulator {
 	 */
 	public void simulateOneTick() {
 		
+		String terminateMessage = null;
+		
 		for (Actor actor : packingStations) {
-			actor.act();
+			terminateMessage = actor.act();
 		}
 		
 		for (Actor actor : robots) {
 			Robot r = (Robot) actor;
-			r.getChargingPod().act(); //TODO: Make the robot actually charge
+			terminateMessage = r.getChargingPod().act(); 
 		}
 		
 		for (Actor actor : shelfs) {
-			actor.act();
+			terminateMessage = actor.act();
 		}
 		
 		for (Actor actor : robots) {
-			actor.act();
+			terminateMessage = actor.act();
 		}
 		
 		grid.updateActorsOnGrid();
 
-		
-//		grid.addActorsToGrid(actorList);
 		System.out.println(grid);
+		
+		if (terminateMessage != null) {
+			endSimulation(terminateMessage);
+		}
 
+	}
+	
+	private static void endSimulation(String messageToPrint) {
+		System.out.println();
+		System.out.println(messageToPrint);
+		System.exit(0);
 	}
 	
 	public void simulationActorSetup(int capacity, int chargeSpeed) {
